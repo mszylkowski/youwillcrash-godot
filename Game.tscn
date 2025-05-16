@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=23 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="Texture2D" uid="uid://bd3w1yxp3ekv5" path="res://Textures/Circle.tres" id="3_u44n3"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
+[ext_resource type="Texture2D" uid="uid://cvgq1x2n5b33n" path="res://Textures/Leaderboards.png" id="10_gwjdr"]
+[ext_resource type="Texture2D" uid="uid://qpnu4gxe71tp" path="res://Textures/Achievements.png" id="11_lvtmh"]
+[ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/g5757.png" id="12_yyih5"]
 
 [sub_resource type="Gradient" id="Gradient_sb48q"]
 offsets = PackedFloat32Array(0)
@@ -20,6 +23,7 @@ width = 10
 
 [sub_resource type="Animation" id="Animation_yhmtn"]
 resource_name = "hide"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,25 +31,80 @@ tracks/0/path = NodePath("TopUI:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.5, 1.5),
 "update": 0,
-"values": [Vector2(-151.365, -417.287), Vector2(-151.365, -490.842)]
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BottomUI:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.5, 1.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 100)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("You Will Crash Title:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-229, -0.25, 0, 0.233333, 234, -584, -0.133333, 238, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.233333, 0.441172, 0.000663269, -0.0814371, 0.538557, 0.25, 0),
+"times": PackedFloat32Array(0, 0.333333)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.233333, 0.438558, 0.000663269, -0.0814371, 0.541171, 0.25, 0),
+"times": PackedFloat32Array(0, 0.333333)
 }
 
 [sub_resource type="Animation" id="Animation_gwjdr"]
 length = 0.001
-tracks/0/type = "value"
+tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TopUI:position")
+tracks/0/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-151.365, -417.287)]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvtmh"]
@@ -146,12 +205,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayButton" type="CollisionShape2D" parent="MainMenu"]
-position = Vector2(0, 116.695)
+[node name="PlayButton" type="StaticBody2D" parent="MainMenu"]
+unique_name_in_owner = true
+position = Vector2(0, 116.625)
+collision_mask = 0
+input_pickable = true
+
+[node name="PlayButtonCollider" type="CollisionShape2D" parent="MainMenu/PlayButton"]
 shape = SubResource("CircleShape2D_2vekm")
 one_way_collision_margin = 0.0
 
-[node name="Play" type="Label" parent="MainMenu/PlayButton"]
+[node name="Play" type="Label" parent="MainMenu/PlayButton/PlayButtonCollider"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -163,12 +227,14 @@ offset_right = 100.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(100, 70)
 size_flags_horizontal = 4
 theme = ExtResource("4_t88pq")
 text = "PLAY"
 label_settings = SubResource("LabelSettings_u44n3")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Dotscount" type="Sprite2D" parent="MainMenu"]
 position = Vector2(-2.0005, -416)
@@ -191,13 +257,13 @@ text = "0"
 label_settings = SubResource("LabelSettings_sb48q")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TopUI" type="Node2D" parent="MainMenu"]
-position = Vector2(-151.365, -417.287)
 scale = Vector2(0.5, 0.5)
 
 [node name="Upgrades" type="Sprite2D" parent="MainMenu/TopUI"]
-position = Vector2(-24.0128, 4.57477)
+position = Vector2(-327, -834)
 texture = ExtResource("6_3mrqo")
 
 [node name="Label" type="Label" parent="MainMenu/TopUI/Upgrades"]
@@ -216,9 +282,10 @@ text = "BOOSTS"
 label_settings = SubResource("LabelSettings_gwjdr")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Rate" type="Sprite2D" parent="MainMenu/TopUI"]
-position = Vector2(626.729, 4.57477)
+position = Vector2(323.742, -834)
 texture = ExtResource("7_joorw")
 
 [node name="Label" type="Label" parent="MainMenu/TopUI/Rate"]
@@ -237,3 +304,55 @@ text = "RATE US"
 label_settings = SubResource("LabelSettings_gwjdr")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BottomUI" type="Node2D" parent="MainMenu"]
+scale = Vector2(0.5, 0.5)
+
+[node name="Leaderboards" type="Sprite2D" parent="MainMenu/BottomUI"]
+position = Vector2(-274, 836)
+texture = ExtResource("10_gwjdr")
+
+[node name="Label" type="Label" parent="MainMenu/BottomUI/Leaderboards"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -60.0
+offset_right = -238.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "LEADERBOARD"
+label_settings = SubResource("LabelSettings_gwjdr")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Achievements" type="Sprite2D" parent="MainMenu/BottomUI"]
+position = Vector2(268, 834)
+texture = ExtResource("11_lvtmh")
+
+[node name="Label" type="Label" parent="MainMenu/BottomUI/Achievements"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -60.0
+offset_right = -340.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "ACHIEVEMENTS"
+label_settings = SubResource("LabelSettings_gwjdr")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Settings" type="Sprite2D" parent="MainMenu/BottomUI"]
+position = Vector2(-6, 834)
+texture = ExtResource("12_yyih5")

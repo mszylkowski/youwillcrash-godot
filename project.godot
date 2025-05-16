@@ -16,10 +16,12 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0.4, 0.501961, 1)
 boot_splash/fullsize=false
 boot_splash/image="uid://bqynfnsns4wkq"
+config/icon="uid://bqynfnsns4wkq"
 
 [autoload]
 
 Currency="*res://Scripts/CurrencyGlobal.gd"
+Events="*res://Scripts/EventsGlobal.gd"
 
 [display]
 
