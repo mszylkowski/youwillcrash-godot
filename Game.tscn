@@ -1,0 +1,239 @@
+[gd_scene load_steps=20 format=3 uid="uid://b5pbc84g5mdio"]
+
+[ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
+[ext_resource type="Texture2D" uid="uid://bd3w1yxp3ekv5" path="res://Textures/Circle.tres" id="3_u44n3"]
+[ext_resource type="Script" uid="uid://dkloj2e7lux7r" path="res://Scripts/SwipeController.gd" id="3_yhmtn"]
+[ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
+[ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
+[ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
+[ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
+[ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
+[ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
+
+[sub_resource type="Gradient" id="Gradient_sb48q"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.828396, 0.931001, 0.970653, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t88pq"]
+gradient = SubResource("Gradient_sb48q")
+width = 10
+
+[sub_resource type="Animation" id="Animation_yhmtn"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopUI:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-151.365, -417.287), Vector2(-151.365, -490.842)]
+}
+
+[sub_resource type="Animation" id="Animation_gwjdr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopUI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-151.365, -417.287)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lvtmh"]
+_data = {
+&"RESET": SubResource("Animation_gwjdr"),
+&"hide": SubResource("Animation_yhmtn")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_2vekm"]
+line_spacing = 0.0
+font_size = 30
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2vekm"]
+radius = 178.07
+
+[sub_resource type="LabelSettings" id="LabelSettings_u44n3"]
+font_size = 96
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sb48q"]
+line_spacing = 0.0
+font_size = 70
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gwjdr"]
+line_spacing = 0.0
+font_size = 46
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(49.117, 900)
+texture = SubResource("GradientTexture1D_t88pq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_xkndl")
+autoplay = true
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(0, 130)
+
+[node name="Background" type="Sprite2D" parent="Player"]
+self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
+position = Vector2(0, -13.2)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_u44n3")
+
+[node name="Middle" type="Sprite2D" parent="Player"]
+self_modulate = Color(0, 0.8, 1, 1)
+position = Vector2(0, -13.2)
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("3_u44n3")
+
+[node name="Foreground" type="Sprite2D" parent="Player"]
+position = Vector2(0, -13.2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_u44n3")
+
+[node name="SwipeController" type="Node" parent="Player"]
+script = ExtResource("3_yhmtn")
+metadata/_custom_type_script = "uid://dkloj2e7lux7r"
+
+[node name="MainMenu" type="Node2D" parent="."]
+script = ExtResource("4_gwjdr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenu"]
+unique_name_in_owner = true
+deterministic = true
+libraries = {
+&"": SubResource("AnimationLibrary_lvtmh")
+}
+
+[node name="You Will Crash Title" type="Sprite2D" parent="MainMenu"]
+position = Vector2(-6.10352e-05, -229)
+scale = Vector2(0.435982, 0.435982)
+texture = ExtResource("4_sb48q")
+
+[node name="HighScore" type="Label" parent="MainMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = 337.0
+offset_right = 199.0
+offset_bottom = 379.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "BEST: 0"
+label_settings = SubResource("LabelSettings_2vekm")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="CollisionShape2D" parent="MainMenu"]
+position = Vector2(0, 116.695)
+shape = SubResource("CircleShape2D_2vekm")
+one_way_collision_margin = 0.0
+
+[node name="Play" type="Label" parent="MainMenu/PlayButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -70.0
+offset_right = 100.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "PLAY"
+label_settings = SubResource("LabelSettings_u44n3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dotscount" type="Sprite2D" parent="MainMenu"]
+position = Vector2(-2.0005, -416)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_t88pq")
+
+[node name="Currency" type="Label" parent="MainMenu/Dotscount"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -46.0001
+offset_right = -198.0
+offset_bottom = -68.0001
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "0"
+label_settings = SubResource("LabelSettings_sb48q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopUI" type="Node2D" parent="MainMenu"]
+position = Vector2(-151.365, -417.287)
+scale = Vector2(0.5, 0.5)
+
+[node name="Upgrades" type="Sprite2D" parent="MainMenu/TopUI"]
+position = Vector2(-24.0128, 4.57477)
+texture = ExtResource("6_3mrqo")
+
+[node name="Label" type="Label" parent="MainMenu/TopUI/Upgrades"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -60.0
+offset_right = -200.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "BOOSTS"
+label_settings = SubResource("LabelSettings_gwjdr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rate" type="Sprite2D" parent="MainMenu/TopUI"]
+position = Vector2(626.729, 4.57477)
+texture = ExtResource("7_joorw")
+
+[node name="Label" type="Label" parent="MainMenu/TopUI/Rate"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -60.0
+offset_right = -288.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "RATE US"
+label_settings = SubResource("LabelSettings_gwjdr")
+horizontal_alignment = 1
+vertical_alignment = 1

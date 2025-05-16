@@ -1,0 +1,40 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://dfdypnhu1aww5"
+path="res://.godot/imported/ChauPOR.ttf-a2fae0c7c3270d7f3950a38dc015d35a.fontdata"
+
+[deps]
+
+source_file="res://Textures/ChauPOR.ttf"
+dest_files=["res://.godot/imported/ChauPOR.ttf-a2fae0c7c3270d7f3950a38dc015d35a.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=2
+generate_mipmaps=true
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=true
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=2
+subpixel_positioning=4
+keep_rounding_remainders=true
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={}
+script_support={}
+opentype_features={}

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b3xtadt6npdt3"
+path="res://.godot/imported/YWC currency.mp3-1cc5af0d63266fee3337cf7c73def18d.mp3str"
+
+[deps]
+
+source_file="res://Audio/YWC currency.mp3"
+dest_files=["res://.godot/imported/YWC currency.mp3-1cc5af0d63266fee3337cf7c73def18d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

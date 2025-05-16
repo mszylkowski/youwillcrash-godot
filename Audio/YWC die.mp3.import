@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bj6bm1o1hsbb0"
+path="res://.godot/imported/YWC die.mp3-0641de65b8f3d375a7bd37ecbf4983bf.mp3str"
+
+[deps]
+
+source_file="res://Audio/YWC die.mp3"
+dest_files=["res://.godot/imported/YWC die.mp3-0641de65b8f3d375a7bd37ecbf4983bf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
