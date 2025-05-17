@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=22 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
-[ext_resource type="Texture2D" uid="uid://bd3w1yxp3ekv5" path="res://Textures/Circle.tres" id="3_u44n3"]
-[ext_resource type="Script" uid="uid://dkloj2e7lux7r" path="res://Scripts/SwipeController.gd" id="3_yhmtn"]
+[ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
 [ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
@@ -20,6 +19,36 @@ colors = PackedColorArray(0.828396, 0.931001, 0.970653, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_t88pq"]
 gradient = SubResource("Gradient_sb48q")
 width = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_sb48q"]
+line_spacing = 0.0
+font_size = 70
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="Animation" id="Animation_gwjdr"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_yhmtn"]
 resource_name = "hide"
@@ -82,31 +111,6 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.333333)
 }
 
-[sub_resource type="Animation" id="Animation_gwjdr"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%PlayButton/PlayButtonCollider/Play:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvtmh"]
 _data = {
 &"RESET": SubResource("Animation_gwjdr"),
@@ -125,11 +129,6 @@ radius = 178.07
 font_size = 96
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_sb48q"]
-line_spacing = 0.0
-font_size = 70
-font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_gwjdr"]
 line_spacing = 0.0
 font_size = 46
@@ -146,29 +145,32 @@ texture = SubResource("GradientTexture1D_t88pq")
 stream = ExtResource("2_xkndl")
 autoplay = true
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" parent="." node_paths=PackedStringArray("shapes") instance=ExtResource("2_yhmtn")]
 position = Vector2(0, 130)
+shapes = []
 
-[node name="Background" type="Sprite2D" parent="Player"]
-self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
-position = Vector2(0, -13.2)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_u44n3")
+[node name="Dotscount" type="Sprite2D" parent="."]
+position = Vector2(-2.0005, -416)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_t88pq")
 
-[node name="Middle" type="Sprite2D" parent="Player"]
-self_modulate = Color(0, 0.8, 1, 1)
-position = Vector2(0, -13.2)
-scale = Vector2(0.76, 0.76)
-texture = ExtResource("3_u44n3")
-
-[node name="Foreground" type="Sprite2D" parent="Player"]
-position = Vector2(0, -13.2)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("3_u44n3")
-
-[node name="SwipeController" type="Node" parent="Player"]
-script = ExtResource("3_yhmtn")
-metadata/_custom_type_script = "uid://dkloj2e7lux7r"
+[node name="Currency" type="Label" parent="Dotscount"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -46.0001
+offset_right = -198.0
+offset_bottom = -68.0001
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "0"
+label_settings = SubResource("LabelSettings_sb48q")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="MainMenu" type="Node2D" parent="."]
 script = ExtResource("4_gwjdr")
@@ -232,29 +234,6 @@ size_flags_horizontal = 4
 theme = ExtResource("4_t88pq")
 text = "PLAY"
 label_settings = SubResource("LabelSettings_u44n3")
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Dotscount" type="Sprite2D" parent="MainMenu"]
-position = Vector2(-2.0005, -416)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_t88pq")
-
-[node name="Currency" type="Label" parent="MainMenu/Dotscount"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -46.0001
-offset_right = -198.0
-offset_bottom = -68.0001
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme = ExtResource("4_t88pq")
-text = "0"
-label_settings = SubResource("LabelSettings_sb48q")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true

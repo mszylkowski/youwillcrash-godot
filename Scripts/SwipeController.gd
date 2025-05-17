@@ -5,4 +5,4 @@ class_name SwipeController extends Node
 func _unhandled_input(event: InputEvent) -> void:
 	var motion_event := event as InputEventMouseMotion
 	if motion_event and motion_event.pressure > .2:
-		print(motion_event.relative)
+		player.global_position += motion_event.relative

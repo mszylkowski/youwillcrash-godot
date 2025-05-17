@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bip2uy5kjiygv"]
+
+[ext_resource type="Script" uid="uid://b8k0uxugp80m1" path="res://Scripts/Player.gd" id="1_kne1u"]
+[ext_resource type="Texture2D" uid="uid://bd3w1yxp3ekv5" path="res://Textures/Circle.tres" id="2_e80uo"]
+[ext_resource type="Script" uid="uid://dkloj2e7lux7r" path="res://Scripts/SwipeController.gd" id="3_cxr5p"]
+[ext_resource type="Script" uid="uid://d3fy77r5v7bnv" path="res://Scripts/PlayerShape.gd" id="3_e80uo"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("shapes")]
+script = ExtResource("1_kne1u")
+shapes = []
+
+[node name="Background" type="Sprite2D" parent="."]
+self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
+position = Vector2(0, -13.2)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_e80uo")
+script = ExtResource("3_e80uo")
+
+[node name="Middle" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0.8, 1, 1)
+position = Vector2(0, -13.2)
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("2_e80uo")
+script = ExtResource("3_e80uo")
+
+[node name="Foreground" type="Sprite2D" parent="."]
+position = Vector2(0, -13.2)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_e80uo")
+script = ExtResource("3_e80uo")
+
+[node name="SwipeController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_cxr5p")
+metadata/_custom_type_script = "uid://dkloj2e7lux7r"
