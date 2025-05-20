@@ -13,7 +13,10 @@ func toggle(value: bool) -> void:
 	if showing == value:
 		return
 	showing = value
-	animation.play("hide", -1, -1 if value else 1)
+	if value:
+		animation.play_backwards("hide")
+	else:
+		animation.play("hide")
 
 func _handle_play_click(_v: Viewport, event: InputEvent, _s: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():

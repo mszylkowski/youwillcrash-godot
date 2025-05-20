@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3j4bp50vsbrk"]
+
+[ext_resource type="Script" uid="uid://csfuvfsylfu7c" path="res://Obstacles/SimpleObstacle.gd" id="1_vny7n"]
+[ext_resource type="Texture2D" uid="uid://crvuup5q0eu56" path="res://Textures/bar.png" id="2_vny7n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_geti0"]
+size = Vector2(160, 25)
+
+[node name="Bar" type="RigidBody2D"]
+collision_layer = 2
+script = ExtResource("1_vny7n")
+rotation_speed = 3.49066
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vny7n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_geti0")

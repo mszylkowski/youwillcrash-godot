@@ -37,6 +37,17 @@ theme/custom="uid://cj5jgds7mrx8"
 theme/custom_font="uid://dfdypnhu1aww5"
 theme/default_font_antialiasing=2
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Obstacles"
+2d_physics/layer_3="UI"
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_gravity_vector=Vector2(0, 0)
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

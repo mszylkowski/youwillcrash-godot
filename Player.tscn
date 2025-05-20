@@ -6,21 +6,19 @@
 [ext_resource type="Script" uid="uid://d3fy77r5v7bnv" path="res://Scripts/PlayerShape.gd" id="3_e80uo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e80uo"]
-radius = 256.0
+radius = 20.0
 
-[node name="Player" type="StaticBody2D" node_paths=PackedStringArray("shapes")]
+[node name="Player" type="Area2D" node_paths=PackedStringArray("shapes")]
+collision_mask = 2
 script = ExtResource("1_kne1u")
-shapes = [NodePath("Background"), NodePath("Middle"), NodePath("Foreground")]
+shapes = [NodePath("Background2"), NodePath("Middle"), NodePath("Foreground")]
 
-[node name="Background" type="CollisionShape2D" parent="."]
+[node name="Background2" type="Sprite2D" parent="."]
+self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
 position = Vector2(0, -13.2)
 scale = Vector2(0.8, 0.8)
-shape = SubResource("CircleShape2D_e80uo")
-script = ExtResource("3_e80uo")
-
-[node name="Background" type="Sprite2D" parent="Background"]
-self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
 texture = ExtResource("2_e80uo")
+script = ExtResource("3_e80uo")
 
 [node name="Middle" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0.8, 1, 1)
@@ -34,6 +32,10 @@ position = Vector2(0, -13.2)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_e80uo")
 script = ExtResource("3_e80uo")
+
+[node name="Background" type="CollisionShape2D" parent="."]
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CircleShape2D_e80uo")
 
 [node name="SwipeController" type="Node" parent="."]
 unique_name_in_owner = true
