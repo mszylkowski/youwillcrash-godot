@@ -5,12 +5,12 @@ extends RigidBody2D
 @export var offset_y := 400.
 
 func _ready() -> void:
-	var angle = randi() % 4
+	var angle = randi_range(0, 3)
 	global_rotation_degrees = angle * 90
 	global_position = Vector2(0, 0)
 	linear_velocity = -Vector2.from_angle(rotation) * speed
 
-	var rand_val := randf() * 2 - 1
+	var rand_val := randf_range(-1, 1)
 	if angle == 0:
 		global_position = Vector2(offset_x * 1.5, offset_y * rand_val)
 		linear_velocity = Vector2.LEFT * speed

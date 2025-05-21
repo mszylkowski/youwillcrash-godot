@@ -9,8 +9,16 @@ class_name GameManager extends Node2D
 @export var OBSTACLE_BAR := preload("res://Obstacles/Bar.tscn")
 @export var OBSTACLE_STAR := preload("res://Obstacles/Star.tscn")
 @export var OBSTACLE_TRIANGLE := preload("res://Obstacles/Star.tscn")
+@export var OBSTACLE_SNAKE := preload("res://Obstacles/Snake.tscn")
 
-var all_obstacles := [OBSTACLE_V, OBSTACLE_V_FLEET, OBSTACLE_BAR, OBSTACLE_STAR, OBSTACLE_TRIANGLE]
+var all_obstacles: Array[PackedScene] = [
+	OBSTACLE_V,
+	OBSTACLE_V_FLEET,
+	OBSTACLE_BAR,
+	OBSTACLE_STAR,
+	OBSTACLE_TRIANGLE,
+	OBSTACLE_SNAKE
+]
 
 var playing := false
 var level := 0:
@@ -47,6 +55,7 @@ func on_state_change(state: Events.GameState) -> void:
 func try_spawning() -> void:
 	if spawn_debt > 1:
 		var obstacle := all_obstacles.pick_random().instantiate() as Node2D
+		#var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
 		add_child(obstacle)
 		spawn_debt = 0
 

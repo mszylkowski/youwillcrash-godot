@@ -19,7 +19,7 @@ func _ready() -> void:
 	linear_velocity = -Vector2.from_angle(rotation) * speed
 	angular_velocity = randf() * rotation_speed
 
-	var destroy_variance := (1. + 2. * (explode_deviation * (randf() - .5)))
+	var destroy_variance := 1. + explode_deviation * randf_range(-1, 1)
 	var destroy_time := (offset / speed) * destroy_variance
 	get_tree().create_timer(destroy_time).timeout.connect(explode)
 
