@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://djex818a8vnhp"]
+
+[ext_resource type="Script" uid="uid://b8bg03twuky51" path="res://Obstacles/PerpendicularObstacle.gd" id="1_2y38v"]
+[ext_resource type="Texture2D" uid="uid://d2agu416vqy3l" path="res://Textures/v.png" id="2_fabwy"]
+
+[node name="VFleet" type="RigidBody2D"]
+collision_layer = 2
+script = ExtResource("1_2y38v")
+speed = 400.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(-19, -23, 19, -23, 33, -9, 1.04907e-06, 24, -33, -8)
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionPolygon2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fabwy")
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="."]
+position = Vector2(40, -40)
+rotation = 1.5708
+polygon = PackedVector2Array(-19, -23, 19, -23, 33, -9, 1.04907e-06, 24, -33, -8)
+
+[node name="Sprite2D2" type="Sprite2D" parent="CollisionPolygon2D4"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fabwy")
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="."]
+position = Vector2(80, -80)
+rotation = 1.5708
+polygon = PackedVector2Array(-19, -23, 19, -23, 33, -9, 1.04907e-06, 24, -33, -8)
+
+[node name="Sprite2D3" type="Sprite2D" parent="CollisionPolygon2D5"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fabwy")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(40, 40)
+rotation = 1.5708
+polygon = PackedVector2Array(-19, -23, 19, -23, 33, -9, 1.04907e-06, 24, -33, -8)
+
+[node name="Sprite2D4" type="Sprite2D" parent="CollisionPolygon2D2"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fabwy")
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
+position = Vector2(80, 80)
+rotation = 1.5708
+polygon = PackedVector2Array(-19, -23, 19, -23, 33, -9, 1.04907e-06, 24, -33, -8)
+
+[node name="Sprite2D5" type="Sprite2D" parent="CollisionPolygon2D3"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fabwy")

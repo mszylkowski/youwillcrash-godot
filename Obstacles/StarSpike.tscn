@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://di1ewqnvkv4dl"]
+
+[ext_resource type="Texture2D" uid="uid://jqpbai8w2kwj" path="res://Textures/spike.png" id="2_0nk23"]
+
+[node name="StarSpike" type="RigidBody2D"]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(19.8001, 0.300083)
+rotation = 3.14159
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_0nk23")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(19.8001, 0.300083)
+rotation = 1.57079
+polygon = PackedVector2Array(-6, -23, -15, 10, -4, 23, 4, 23, 16, 9, 5, -23)

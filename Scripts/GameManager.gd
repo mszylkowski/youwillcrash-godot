@@ -5,7 +5,12 @@ class_name GameManager extends Node2D
 @export var play_text: Label
 
 @export var OBSTACLE_V := preload("res://Obstacles/V.tscn")
+@export var OBSTACLE_V_FLEET := preload("res://Obstacles/VFleet.tscn")
 @export var OBSTACLE_BAR := preload("res://Obstacles/Bar.tscn")
+@export var OBSTACLE_STAR := preload("res://Obstacles/Star.tscn")
+@export var OBSTACLE_TRIANGLE := preload("res://Obstacles/Star.tscn")
+
+var all_obstacles := [OBSTACLE_V, OBSTACLE_V_FLEET, OBSTACLE_BAR, OBSTACLE_STAR, OBSTACLE_TRIANGLE]
 
 var playing := false
 var level := 0:
@@ -32,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	level = floor((score / 150.) + 1)
 	spawn_debt += delta
 	try_spawning()
-	
+
 func on_state_change(state: Events.GameState) -> void:
 	if state == Events.GameState.GAME:
 		start_game()
@@ -41,7 +46,7 @@ func on_state_change(state: Events.GameState) -> void:
 
 func try_spawning() -> void:
 	if spawn_debt > 1:
-		var obstacle := [OBSTACLE_BAR, OBSTACLE_V].pick_random().instantiate() as Node2D
+		var obstacle := all_obstacles.pick_random().instantiate() as Node2D
 		add_child(obstacle)
 		spawn_debt = 0
 

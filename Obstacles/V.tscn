@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt18p6nv1iorq"]
 
-[ext_resource type="Script" uid="uid://csfuvfsylfu7c" path="res://Obstacles/SimpleObstacle.gd" id="1_540xm"]
+[ext_resource type="Script" uid="uid://b8bg03twuky51" path="res://Obstacles/PerpendicularObstacle.gd" id="1_540xm"]
 [ext_resource type="Texture2D" uid="uid://d2agu416vqy3l" path="res://Textures/v.png" id="1_cfu02"]
 
 [node name="V" type="RigidBody2D"]

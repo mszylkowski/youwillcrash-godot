@@ -12,6 +12,6 @@ func _ready() -> void:
 	global_position = Vector2.from_angle(angle) * offset
 	linear_velocity = -Vector2.from_angle(rotation) * speed
 	angular_velocity = randf() * rotation_speed
-	
+
 	var destroy_time := offset * 2 / speed
 	get_tree().create_timer(destroy_time).timeout.connect(queue_free)

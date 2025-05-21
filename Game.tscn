@@ -246,11 +246,13 @@ text = "PLAY"
 label_settings = SubResource("LabelSettings_u44n3")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TopUI" type="Node2D" parent="MainMenu"]
 scale = Vector2(0.5, 0.5)
 
 [node name="Upgrades" type="Sprite2D" parent="MainMenu/TopUI"]
+visible = false
 position = Vector2(-344, -860)
 texture = ExtResource("6_3mrqo")
 
@@ -273,6 +275,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Rate" type="Sprite2D" parent="MainMenu/TopUI"]
+visible = false
 position = Vector2(338, -862)
 texture = ExtResource("7_joorw")
 
@@ -298,6 +301,7 @@ metadata/_edit_use_anchors_ = true
 scale = Vector2(0.5, 0.5)
 
 [node name="Leaderboards" type="Sprite2D" parent="MainMenu/BottomUI"]
+visible = false
 position = Vector2(-290, 860)
 texture = ExtResource("10_gwjdr")
 
@@ -320,6 +324,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Achievements" type="Sprite2D" parent="MainMenu/BottomUI"]
+visible = false
 position = Vector2(286, 860)
 texture = ExtResource("11_lvtmh")
 
@@ -342,6 +347,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Settings" type="Sprite2D" parent="MainMenu/BottomUI"]
+visible = false
 position = Vector2(-4, 858)
 texture = ExtResource("12_yyih5")
 
@@ -363,3 +369,4 @@ text = "BEST: 0"
 label_settings = SubResource("LabelSettings_2vekm")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

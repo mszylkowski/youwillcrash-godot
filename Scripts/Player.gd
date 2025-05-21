@@ -31,7 +31,7 @@ func on_state_change(state: Events.GameState) -> void:
 func on_collision(_other: Node2D) -> void:
 	Events.died.emit()
 	Events.change_state.emit(Events.GameState.MAIN_MENU)
-	
+
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "global_position", start_pos, .5)
 
