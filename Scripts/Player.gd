@@ -24,9 +24,11 @@ func on_state_change(state: Events.GameState) -> void:
 		Events.GameState.GAME:
 			%SwipeController.process_mode = Node.PROCESS_MODE_INHERIT
 			set_sizes(SCALES_SMALL)
+			set_deferred("monitoring", true)
 		Events.GameState.MAIN_MENU:
 			%SwipeController.process_mode = Node.PROCESS_MODE_DISABLED
 			set_sizes(SCALES_LARGE)
+			set_deferred("monitoring", false)
 
 func on_collision(_other: Node2D) -> void:
 	Events.died.emit()

@@ -54,8 +54,8 @@ func on_state_change(state: Events.GameState) -> void:
 
 func try_spawning() -> void:
 	if spawn_debt > 1:
-		var obstacle := all_obstacles.pick_random().instantiate() as Node2D
-		#var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
+		#var obstacle := all_obstacles.pick_random().instantiate() as Node2D
+		var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
 		add_child(obstacle)
 		spawn_debt = 0
 

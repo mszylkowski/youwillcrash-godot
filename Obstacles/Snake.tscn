@@ -1,19 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwlgv3kpk1vln"]
+[gd_scene load_steps=2 format=3 uid="uid://bq1psqc6qnrct"]
 
 [ext_resource type="Script" uid="uid://brcipa1icoqha" path="res://Obstacles/SnakeObstacle.gd" id="1_tohjh"]
-[ext_resource type="Texture2D" uid="uid://b5ovqna3ogskk" path="res://Textures/snake.png" id="2_tohjh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c8v7"]
-size = Vector2(34, 34)
-
-[node name="Snake" type="RigidBody2D"]
-collision_layer = 2
+[node name="SnakeRoot" type="Node2D"]
 script = ExtResource("1_tohjh")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_tohjh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8c8v7")

@@ -45,8 +45,11 @@ theme/default_font_antialiasing=2
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0
 
 [rendering]
 
