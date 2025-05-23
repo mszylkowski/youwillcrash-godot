@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_range(0.01, 1., .01) var move_time := .15 ## How often the snake moves forward
+@export_range(0.01, 1., .01) var move_time := .15  ## How often the snake moves forward
 @export var offset_x := 250
 @export var offset_y := 400
 @export var dist_between_parts := 40.0
@@ -27,6 +27,7 @@ func _ready() -> void:
 		lin_vel = Vector2.DOWN * dist_between_parts
 
 	var turn_move_max := (offset_x if angle % 2 else offset_y) * 2 / dist_between_parts
+	var total_turn_move_max := (offset_y + offset_x) * 2 / dist_between_parts
 	var turn_move := randi_range(roundi(turn_move_max * .3), roundi(turn_move_max * .7))
 	var next_vel := Vector2(-lin_vel.y, lin_vel.x) * (1 if randf() > .5 else -1)
 	var length := randi_range(5, 8)
@@ -39,7 +40,7 @@ func _ready() -> void:
 		part.global_position = curr_pos
 		add_child(part)
 
-	for i in range(turn_move + 20):
+	for i in range(total_turn_move_max):
 		curr_pos += lin_vel if (i < turn_move) else next_vel
 		var part := get_child(0) as Node2D
 		part.global_position = curr_pos

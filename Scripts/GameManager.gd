@@ -4,12 +4,12 @@ class_name GameManager extends Node2D
 @export var level_text: Label
 @export var play_text: Label
 
-@export var OBSTACLE_V := preload("res://Obstacles/V.tscn")
-@export var OBSTACLE_V_FLEET := preload("res://Obstacles/VFleet.tscn")
-@export var OBSTACLE_BAR := preload("res://Obstacles/Bar.tscn")
-@export var OBSTACLE_STAR := preload("res://Obstacles/Star.tscn")
-@export var OBSTACLE_TRIANGLE := preload("res://Obstacles/Star.tscn")
-@export var OBSTACLE_SNAKE := preload("res://Obstacles/Snake.tscn")
+var OBSTACLE_V := preload("res://Obstacles/V.tscn")
+var OBSTACLE_V_FLEET := preload("res://Obstacles/VFleet.tscn")
+var OBSTACLE_BAR := preload("res://Obstacles/Bar.tscn")
+var OBSTACLE_STAR := preload("res://Obstacles/Star.tscn")
+var OBSTACLE_TRIANGLE := preload("res://Obstacles/Star.tscn")
+var OBSTACLE_SNAKE := preload("res://Obstacles/Snake.tscn")
 
 var all_obstacles: Array[PackedScene] = [
 	OBSTACLE_V,
@@ -54,8 +54,8 @@ func on_state_change(state: Events.GameState) -> void:
 
 func try_spawning() -> void:
 	if spawn_debt > 1:
-		#var obstacle := all_obstacles.pick_random().instantiate() as Node2D
-		var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
+		var obstacle := all_obstacles.pick_random().instantiate() as Node2D
+		#var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
 		add_child(obstacle)
 		spawn_debt = 0
 

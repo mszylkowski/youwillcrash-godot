@@ -1,5 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=26 format=3 uid="uid://b5pbc84g5mdio"]
 
+[ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
 [ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
@@ -20,6 +21,11 @@ colors = PackedColorArray(0.828396, 0.931001, 0.970653, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_t88pq"]
 gradient = SubResource("Gradient_sb48q")
 width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yyih5"]
+shader = ExtResource("2_lvtmh")
+shader_parameter/shadow_offset = Vector2(5, 5)
+shader_parameter/shadow_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_lvtmh"]
 line_spacing = 0.0
@@ -152,7 +158,8 @@ texture = SubResource("GradientTexture1D_t88pq")
 stream = ExtResource("2_xkndl")
 autoplay = true
 
-[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("score_text", "play_text")]
+[node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("score_text", "play_text")]
+material = SubResource("ShaderMaterial_yyih5")
 script = ExtResource("12_gwjdr")
 score_text = NodePath("../Score")
 play_text = NodePath("../MainMenu/PlayButton/Play")
