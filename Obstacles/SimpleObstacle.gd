@@ -1,9 +1,9 @@
-extends RigidBody2D
+class_name SimpleObstacle extends RigidBody2D
 
-@export var speed := 200.0
-@export var offset := 600
+@export var speed := 200.0 ## Forward velocity.
+@export var offset := 600 ## Distance from the center where the object is created.
 @export_range(0, 90, .1, "radians_as_degrees") var deviation_radians := .4
-@export_range(0, 360, .1, "radians_as_degrees") var rotation_speed := 0.
+@export_range(0, 360, .1, "radians_as_degrees") var rotation_speed := 0. ## Max rotation speed.
 
 func _ready() -> void:
 	var angle = randf() * TAU

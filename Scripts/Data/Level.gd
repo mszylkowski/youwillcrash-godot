@@ -1,11 +1,12 @@
 class_name Level extends Resource
 
-enum Obstacles {V, V_FLEET, BAR, STAR, TRIANGLE, SNAKE}
+enum Obstacles {V, TRIANGLE, BAR, BOOMERANG, V_FLEET, STAR, SNAKE}
 
 const OBSTACLE_PREFABS: Dictionary[Obstacles, PackedScene] = {
 	Obstacles.V : preload("res://Obstacles/V.tscn"),
 	Obstacles.TRIANGLE: preload("res://Obstacles/Triangle.tscn"),
 	Obstacles.BAR : preload("res://Obstacles/Bar.tscn"),
+	Obstacles.BOOMERANG: preload("res://Obstacles/Boomerang.tscn"),
 	Obstacles.V_FLEET: preload("res://Obstacles/VFleet.tscn"),
 	Obstacles.STAR: preload("res://Obstacles/Star.tscn"),
 	Obstacles.SNAKE: preload("res://Obstacles/Snake.tscn"),
@@ -15,6 +16,7 @@ const OBSTACLE_COST: Dictionary[Obstacles, float] = {
 	Obstacles.V : 1,
 	Obstacles.TRIANGLE: 1.5,
 	Obstacles.BAR : 2,
+	Obstacles.BOOMERANG: 2.5,
 	Obstacles.V_FLEET: 2.5,
 	Obstacles.SNAKE: 2,
 	Obstacles.STAR: 4,
@@ -30,9 +32,12 @@ static func from_number(number: int) -> Level:
 	match number:
 		1: return Level.new({Obstacles.V: 1}, adjustment)
 		2: return Level.new({Obstacles.TRIANGLE: .8, Obstacles.V: .2}, adjustment)
-		3: return Level.new({Obstacles.BAR: .7, Obstacles.TRIANGLE: .15, Obstacles.V: .15}, adjustment)
+		3:
+			if randf() > .5:
+				return Level.new({Obstacles.BAR: .7, Obstacles.TRIANGLE: .15, Obstacles.V: .15}, adjustment)
+			return Level.new({Obstacles.BOOMERANG: .7, Obstacles.TRIANGLE: .15, Obstacles.V: .15}, adjustment)
 		4: return Level.new({Obstacles.V_FLEET: .7, Obstacles.BAR: .15, Obstacles.V: .15}, adjustment)
-		6: return Level.new({Obstacles.SNAKE: .7, Obstacles.BAR: .1, Obstacles.V: .1}, adjustment)
+		6: return Level.new({Obstacles.SNAKE: .7, Obstacles.BOOMERANG: .2, Obstacles.V: .1}, adjustment)
 		5: return Level.new({Obstacles.STAR: .6, Obstacles.BAR: .2, Obstacles.TRIANGLE: .2}, adjustment)
 
 	var shapes_count: int = [1, 2, 3, 4][rng.rand_weighted([7, 5, 3, 1])]

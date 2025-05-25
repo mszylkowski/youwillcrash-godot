@@ -1,6 +1,7 @@
 extends Node
 
 const STATE_PATH := "user://state.cfg"
+const SCREEN := Rect2(-240, -450, 480, 900)
 
 var currency := 0:
 	set(v):
