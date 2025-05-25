@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
 [ext_resource type="Script" uid="uid://bwaf4fbtqlnyu" path="res://Scripts/UI/DoNotCrash.gd" id="3_0yprl"]
+[ext_resource type="Script" uid="uid://y8ia1qgcvmiw" path="res://Scripts/UI/LevelLabel.gd" id="3_wuoie"]
 [ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
@@ -61,20 +62,6 @@ outline_color = Color(0.827451, 0.929412, 0.968627, 1)
 line_spacing = 0.0
 font_size = 70
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
-
-[sub_resource type="Animation" id="Animation_gwjdr"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Score:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-397, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_yhmtn"]
 resource_name = "hide"
@@ -150,7 +137,6 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lvtmh"]
 _data = {
-&"RESET": SubResource("Animation_gwjdr"),
 &"hide": SubResource("Animation_yhmtn")
 }
 
@@ -227,19 +213,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -161.0
 offset_top = -87.0
-offset_right = 160.0
+offset_right = 159.0
 offset_bottom = 192.167
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(160, 140)
 size_flags_horizontal = 4
 theme = ExtResource("4_t88pq")
 text = "1"
 label_settings = SubResource("LabelSettings_elkpi")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+script = ExtResource("3_wuoie")
 
-[node name="Level2" type="Label" parent="Level"]
+[node name="Stage" type="Label" parent="Level"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -260,11 +247,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Do not crash" type="Node2D" parent="."]
+[node name="Intro" type="Node2D" parent="."]
 position = Vector2(0, 63)
 script = ExtResource("3_0yprl")
 
-[node name="DO" type="Label" parent="Do not crash"]
+[node name="DO" type="Label" parent="Intro"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -282,7 +270,8 @@ text = "DO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NOT" type="Label" parent="Do not crash"]
+[node name="NOT" type="Label" parent="Intro"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -300,7 +289,8 @@ text = "NOT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CRASH" type="Label" parent="Do not crash"]
+[node name="CRASH" type="Label" parent="Intro"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -333,9 +323,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -50.0
-offset_top = -397.0
+offset_top = -452.0
 offset_right = 50.0
-offset_bottom = -348.146
+offset_bottom = -403.146
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

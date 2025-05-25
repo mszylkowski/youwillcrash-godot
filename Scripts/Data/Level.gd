@@ -25,7 +25,7 @@ var probabilities: Dictionary[Obstacles, float]
 var cost_adjustment: float
 
 static func from_number(number: int) -> Level:
-	var adjustment := 1 / (.6 * log(number) + 1.5)
+	var adjustment := 1 / (.75 * log(number) + 1.5)
 
 	match number:
 		1: return Level.new({Obstacles.V: 1}, adjustment)

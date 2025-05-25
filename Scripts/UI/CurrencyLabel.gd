@@ -7,7 +7,5 @@ func _ready() -> void:
 
 func on_change(value: int) -> void:
 	text = str(value)
-	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	tween.tween_property(self, "scale", Vector2(.5, .5), .1)
-	tween.tween_property(self, "scale", Vector2(1, 1), .3)
+	Animations.pop(self)
 	$"../AudioStreamPlayer2D".play()

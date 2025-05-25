@@ -7,12 +7,14 @@ class_name GameManager extends Node2D
 const CURRENCY_OBJECT := preload("res://Obstacles/Currency.tscn")
 
 var playing := false
-var level := 1:
+var level := -1:
 	set(l):
+		if level == l: return
 		level = l
 		if level_text:
 			level_text.text = str(level)
 		level_data = Level.from_number(level)
+		Events.level_changed.emit(level)
 var level_data: Level
 
 var score := 0.0:
@@ -20,13 +22,13 @@ var score := 0.0:
 		score = s
 		if score_text:
 			score_text.text = str(floori(score))
-		Events.score_change.emit(score)
+		Events.score_changed.emit(score)
 
 var spawn_debt := 0.0
 var last_picked_currency_time := 0.0
 
 func _ready() -> void:
-	Events.change_state.connect(on_state_change)
+	Events.state_changed.connect(state_changed)
 	Events.picked_currency.connect(picked_currency)
 
 func _physics_process(delta: float) -> void:
@@ -39,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		last_picked_currency_time += delta
 	try_spawning()
 
-func on_state_change(state: Events.GameState) -> void:
+func state_changed(state: Events.GameState) -> void:
 	if state == Events.GameState.GAME:
 		start_game()
 	else:
@@ -62,14 +64,14 @@ func start_game() -> void:
 	playing = true
 	spawn_debt = 0
 	last_picked_currency_time = 0
-	modulate = Color.WHITE
+	modulate.a = 1
 
 func end_game() -> void:
 	if not playing:
 		return
 	playing = false
 	var tween := get_tree().create_tween()
-	tween.tween_property(self, "modulate", Color.TRANSPARENT, .5)
+	tween.tween_property(self, "modulate:a", 0, .5)
 	play_text.text = str(floori(score))
 	await tween.finished
 	for child in get_children():

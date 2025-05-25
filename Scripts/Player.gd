@@ -9,17 +9,17 @@ const SCALES_SMALL: Array[float] = [.08, .06, .04]
 var velocity := Vector2.ZERO
 
 func _ready() -> void:
-	Events.change_state.connect(on_state_change)
+	Events.state_changed.connect(state_changed)
 	body_entered.connect(on_collision)
 	area_exited.connect(on_collision)
-	on_state_change(Events.GameState.MAIN_MENU)
+	state_changed(Events.GameState.MAIN_MENU)
 
 func _process(_delta: float) -> void:
 	velocity *= _delta * 5
 	for i in shapes.size():
 		shapes[i].position = velocity * i
 
-func on_state_change(state: Events.GameState) -> void:
+func state_changed(state: Events.GameState) -> void:
 	match state:
 		Events.GameState.GAME:
 			%SwipeController.process_mode = Node.PROCESS_MODE_INHERIT
@@ -35,7 +35,7 @@ func on_collision(other: Node2D) -> void:
 		(other as CurrencyPickup).pickup()
 		return
 	Events.died.emit()
-	Events.change_state.emit(Events.GameState.MAIN_MENU)
+	Events.state_changed.emit(Events.GameState.MAIN_MENU)
 
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "global_position", start_pos, .5)

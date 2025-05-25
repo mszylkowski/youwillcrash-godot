@@ -12,7 +12,7 @@ func _ready() -> void:
 	var lin_vel := -Vector2.from_angle(angle * PI * .5) * dist_between_parts
 
 	var start_pos := Vector2.ZERO
-	var rand_val := randf_range(-1, 1)
+	var rand_val := randf_range(-.6, .6)
 	if angle == 0:
 		start_pos = Vector2(offset_x * 1.5, offset_y * rand_val)
 		lin_vel = Vector2.LEFT * dist_between_parts

@@ -21,4 +21,4 @@ func _handle_play_click(_v: Viewport, event: InputEvent, _s: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if showing:
 			toggle(false)
-			Events.change_state.emit(Events.GameState.GAME)
+			Events.state_changed.emit(Events.GameState.GAME)

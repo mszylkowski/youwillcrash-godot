@@ -15,7 +15,7 @@ var highscore := 0:
 
 func _ready() -> void:
 	load_state()
-	Events.score_change.connect(
+	Events.score_changed.connect(
 		func(score: int) -> void:
 			if score > highscore:
 				highscore = score
