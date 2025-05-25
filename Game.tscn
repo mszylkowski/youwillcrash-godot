@@ -1,26 +1,49 @@
-[gd_scene load_steps=26 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=35 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
+[ext_resource type="Script" uid="uid://bwaf4fbtqlnyu" path="res://Scripts/UI/DoNotCrash.gd" id="3_0yprl"]
 [ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
+[ext_resource type="Script" uid="uid://des0au57e7gfd" path="res://Scripts/UI/CurrencyLabel.gd" id="7_yyih5"]
+[ext_resource type="AudioStream" uid="uid://2u6vwk63ddfc" path="res://Audio/YWC click.mp3" id="8_qjyg3"]
 [ext_resource type="Texture2D" uid="uid://cvgq1x2n5b33n" path="res://Textures/Leaderboards.png" id="10_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://qpnu4gxe71tp" path="res://Textures/Achievements.png" id="11_lvtmh"]
 [ext_resource type="Script" uid="uid://cs0oqjqq40shr" path="res://Scripts/GameManager.gd" id="12_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/g5757.png" id="12_yyih5"]
+[ext_resource type="Script" uid="uid://bbkab7oi8h4xw" path="res://Scripts/UI/HighscoreLabel.gd" id="16_elkpi"]
 
-[sub_resource type="Gradient" id="Gradient_sb48q"]
+[sub_resource type="Gradient" id="Gradient_elkpi"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.828396, 0.931001, 0.970653, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_t88pq"]
-gradient = SubResource("Gradient_sb48q")
+gradient = SubResource("Gradient_elkpi")
 width = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjyg3"]
+size = Vector2(480, 900)
+
+[sub_resource type="Gradient" id="Gradient_qjyg3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_elkpi"]
+gradient = SubResource("Gradient_qjyg3")
+width = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_elkpi"]
+line_spacing = 0.0
+font_size = 200
+
+[sub_resource type="LabelSettings" id="LabelSettings_qjyg3"]
+line_spacing = 0.0
+font_size = 30
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yyih5"]
 shader = ExtResource("2_lvtmh")
@@ -31,6 +54,8 @@ shader_parameter/shadow_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 line_spacing = 0.0
 font_size = 30
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+outline_size = 10
+outline_color = Color(0.827451, 0.929412, 0.968627, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_sb48q"]
 line_spacing = 0.0
@@ -134,7 +159,7 @@ radius = 178.07
 
 [sub_resource type="LabelSettings" id="LabelSettings_u44n3"]
 line_spacing = 0.0
-font_size = 96
+font_size = 120
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gwjdr"]
@@ -148,9 +173,47 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [node name="World" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Bounds" type="Area2D" parent="."]
+collision_layer = 8
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="Bounds"]
 scale = Vector2(520, 940)
 texture = SubResource("GradientTexture1D_t88pq")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("RectangleShape2D_qjyg3")
+debug_color = Color(0, 0.601379, 0.701202, 0)
+metadata/_edit_lock_ = true
+
+[node name="BoundOverlay" type="Sprite2D" parent="Bounds"]
+z_index = 3
+position = Vector2(0, -670)
+scale = Vector2(1000, 400)
+texture = SubResource("GradientTexture1D_elkpi")
+metadata/_edit_lock_ = true
+
+[node name="BoundOverlay2" type="Sprite2D" parent="Bounds"]
+z_index = 3
+position = Vector2(0, 670)
+scale = Vector2(1000, 400)
+texture = SubResource("GradientTexture1D_elkpi")
+metadata/_edit_lock_ = true
+
+[node name="BoundOverlay3" type="Sprite2D" parent="Bounds"]
+z_index = 3
+position = Vector2(460, 0)
+scale = Vector2(400, 1000)
+texture = SubResource("GradientTexture1D_elkpi")
+metadata/_edit_lock_ = true
+
+[node name="BoundOverlay4" type="Sprite2D" parent="Bounds"]
+z_index = 3
+position = Vector2(-460, 0)
+scale = Vector2(400, 1000)
+texture = SubResource("GradientTexture1D_elkpi")
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -158,10 +221,108 @@ texture = SubResource("GradientTexture1D_t88pq")
 stream = ExtResource("2_xkndl")
 autoplay = true
 
-[node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("score_text", "play_text")]
+[node name="Level" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -161.0
+offset_top = -87.0
+offset_right = 160.0
+offset_bottom = 192.167
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "1"
+label_settings = SubResource("LabelSettings_elkpi")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Level2" type="Label" parent="Level"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -137.583
+offset_right = 37.5
+offset_bottom = -95.7083
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "STAGE"
+label_settings = SubResource("LabelSettings_qjyg3")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Do not crash" type="Node2D" parent="."]
+position = Vector2(0, 63)
+script = ExtResource("3_0yprl")
+
+[node name="DO" type="Label" parent="Do not crash"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -271.0
+offset_right = 261.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 245
+text = "DO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NOT" type="Label" parent="Do not crash"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = -136.0
+offset_right = 261.0
+offset_bottom = 108.271
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 175
+text = "NOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CRASH" type="Label" parent="Do not crash"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.5
+offset_top = -3.0
+offset_right = 259.5
+offset_bottom = 241.271
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 105
+text = "CRASH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("score_text", "level_text", "play_text")]
 material = SubResource("ShaderMaterial_yyih5")
 script = ExtResource("12_gwjdr")
 score_text = NodePath("../Score")
+level_text = NodePath("../Level")
 play_text = NodePath("../MainMenu/PlayButton/Play")
 
 [node name="Player" parent="." instance=ExtResource("2_yhmtn")]
@@ -206,7 +367,11 @@ text = "0"
 label_settings = SubResource("LabelSettings_sb48q")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("7_yyih5")
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Dotscount"]
+stream = ExtResource("8_qjyg3")
 
 [node name="MainMenu" type="Node2D" parent="."]
 script = ExtResource("4_gwjdr")
@@ -365,9 +530,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -404.0
-offset_top = 756.0
+offset_top = 844.0
 offset_right = 396.0
-offset_bottom = 826.0
+offset_bottom = 914.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -376,4 +541,5 @@ text = "BEST: 0"
 label_settings = SubResource("LabelSettings_2vekm")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("16_elkpi")
 metadata/_edit_use_anchors_ = true

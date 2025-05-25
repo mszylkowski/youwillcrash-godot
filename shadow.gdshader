@@ -7,7 +7,6 @@ uniform vec4 shadow_color : source_color = vec4(0, 0, 0, .5);
 
 void fragment() {
 	vec4 original_color = textureLod(screen_texture, SCREEN_UV, 0.0);
-	vec2 screen_pixel_size = 1.0 / vec2(textureSize(screen_texture, 0));
 	vec2 uv_offset = shadow_offset / vec2(textureSize(screen_texture, 0));
 	float caster_alpha = textureLod(screen_texture, SCREEN_UV - uv_offset, 0.0).a;
 	vec4 shadow_layer = vec4(shadow_color.rgb, shadow_color.a * caster_alpha);

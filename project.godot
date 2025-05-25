@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="You Will Crash"
+config/version="0.1.0"
 run/main_scene="uid://b5pbc84g5mdio"
+config/custom_user_dir_name="Montevisoft/YouWillCrash"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0.4, 0.501961, 1)
 boot_splash/fullsize=false
@@ -20,8 +22,8 @@ config/icon="uid://bqynfnsns4wkq"
 
 [autoload]
 
-Currency="*res://Scripts/CurrencyGlobal.gd"
-Events="*res://Scripts/EventsGlobal.gd"
+GameState="*res://Scripts/Globals/GameStateGlobal.gd"
+Events="*res://Scripts/Globals/EventsGlobal.gd"
 
 [display]
 
@@ -30,6 +32,10 @@ window/size/viewport_height=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[global_group]
+
+currency="Object is currency pickup"
 
 [gui]
 

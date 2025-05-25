@@ -6,10 +6,10 @@
 [ext_resource type="Script" uid="uid://d3fy77r5v7bnv" path="res://Scripts/PlayerShape.gd" id="3_e80uo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e80uo"]
-radius = 20.0
+radius = 27.0
 
 [node name="Player" type="Area2D" node_paths=PackedStringArray("shapes")]
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("1_kne1u")
 shapes = [NodePath("Background2"), NodePath("Middle"), NodePath("Foreground")]
 
@@ -30,7 +30,7 @@ scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_e80uo")
 script = ExtResource("3_e80uo")
 
-[node name="Background" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.8, 0.8)
 shape = SubResource("CircleShape2D_e80uo")
 

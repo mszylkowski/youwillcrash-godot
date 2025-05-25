@@ -10,9 +10,9 @@ var velocity := Vector2.ZERO
 
 func _ready() -> void:
 	Events.change_state.connect(on_state_change)
-	on_state_change(Events.GameState.MAIN_MENU)
 	body_entered.connect(on_collision)
-	area_exited.connect(print.bind("exited"))
+	area_exited.connect(on_collision)
+	on_state_change(Events.GameState.MAIN_MENU)
 
 func _process(_delta: float) -> void:
 	velocity *= _delta * 5
@@ -30,7 +30,10 @@ func on_state_change(state: Events.GameState) -> void:
 			set_sizes(SCALES_LARGE)
 			set_deferred("monitoring", false)
 
-func on_collision(_other: Node2D) -> void:
+func on_collision(other: Node2D) -> void:
+	if other.is_in_group("currency"):
+		(other as CurrencyPickup).pickup()
+		return
 	Events.died.emit()
 	Events.change_state.emit(Events.GameState.MAIN_MENU)
 

@@ -24,6 +24,10 @@ func _ready() -> void:
 	get_tree().create_timer(destroy_time).timeout.connect(explode)
 
 func explode() -> void:
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "scale", Vector2(.5, .5), .1)
+	tween.tween_property(self, "scale", Vector2(1, 1), .3)
+	await tween.finished
 	for i in range(4):
 		var spike := SPIKE_PREFAB.instantiate() as RigidBody2D
 		get_parent().add_child(spike)

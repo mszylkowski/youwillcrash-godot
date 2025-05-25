@@ -4,46 +4,39 @@ class_name GameManager extends Node2D
 @export var level_text: Label
 @export var play_text: Label
 
-var OBSTACLE_V := preload("res://Obstacles/V.tscn")
-var OBSTACLE_V_FLEET := preload("res://Obstacles/VFleet.tscn")
-var OBSTACLE_BAR := preload("res://Obstacles/Bar.tscn")
-var OBSTACLE_STAR := preload("res://Obstacles/Star.tscn")
-var OBSTACLE_TRIANGLE := preload("res://Obstacles/Star.tscn")
-var OBSTACLE_SNAKE := preload("res://Obstacles/Snake.tscn")
-
-var all_obstacles: Array[PackedScene] = [
-	OBSTACLE_V,
-	OBSTACLE_V_FLEET,
-	OBSTACLE_BAR,
-	OBSTACLE_STAR,
-	OBSTACLE_TRIANGLE,
-	OBSTACLE_SNAKE
-]
+const CURRENCY_OBJECT := preload("res://Obstacles/Currency.tscn")
 
 var playing := false
-var level := 0:
+var level := 1:
 	set(l):
 		level = l
 		if level_text:
 			level_text.text = str(level)
+		level_data = Level.from_number(level)
+var level_data: Level
 
 var score := 0.0:
 	set(s):
 		score = s
 		if score_text:
 			score_text.text = str(floori(score))
+		Events.score_change.emit(score)
 
 var spawn_debt := 0.0
+var last_picked_currency_time := 0.0
 
 func _ready() -> void:
 	Events.change_state.connect(on_state_change)
+	Events.picked_currency.connect(picked_currency)
 
 func _physics_process(delta: float) -> void:
 	if not playing:
 		return
 	score += delta * 10
-	level = floor((score / 150.) + 1)
+	level = floori((score / 150.)) + 1
 	spawn_debt += delta
+	if last_picked_currency_time >= 0:
+		last_picked_currency_time += delta
 	try_spawning()
 
 func on_state_change(state: Events.GameState) -> void:
@@ -53,18 +46,22 @@ func on_state_change(state: Events.GameState) -> void:
 		end_game()
 
 func try_spawning() -> void:
-	if spawn_debt > 1:
-		var obstacle := all_obstacles.pick_random().instantiate() as Node2D
-		#var obstacle := OBSTACLE_SNAKE.instantiate() as Node2D
-		add_child(obstacle)
-		spawn_debt = 0
+	if spawn_debt > 0:
+		var cost := level_data.spawn_shape(self)
+		spawn_debt = -cost
+	if last_picked_currency_time > 3:
+		var currency := CURRENCY_OBJECT.instantiate() as CurrencyPickup
+		add_child(currency)
+		last_picked_currency_time = -1
 
 func start_game() -> void:
 	if playing:
 		return
-	level = 0
+	level = 1
 	score = 0
 	playing = true
+	spawn_debt = 0
+	last_picked_currency_time = 0
 	modulate = Color.WHITE
 
 func end_game() -> void:
@@ -77,3 +74,7 @@ func end_game() -> void:
 	await tween.finished
 	for child in get_children():
 		child.queue_free()
+
+func picked_currency() -> void:
+	score += 10
+	last_picked_currency_time = 0
