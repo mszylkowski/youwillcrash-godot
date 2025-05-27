@@ -7,6 +7,7 @@ var showing := true
 func _ready() -> void:
 	%PlayButton.input_event.connect(_handle_play_click)
 	Events.died.connect(toggle.bind(true))
+	Events.score_changed.connect(score_changed)
 
 func toggle(value: bool) -> void:
 	if showing == value:
@@ -21,4 +22,8 @@ func _handle_play_click(_v: Viewport, event: InputEvent, _s: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if showing:
 			toggle(false)
-			Events.state_changed.emit(Events.GameState.GAME)
+			GameState.state = GameState.States.GAME
+
+func score_changed(value: int) -> void:
+	if value > 10:
+		%PlayLabel.text = str(value)

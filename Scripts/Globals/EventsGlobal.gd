@@ -1,7 +1,5 @@
 extends Node
 
-enum GameState {MAIN_MENU, GAME, SETTINGS, BOOSTS}
-
 @warning_ignore_start("unused_signal")
 
 signal score_changed(value: int) ## When the score changed.

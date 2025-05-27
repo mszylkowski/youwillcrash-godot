@@ -1,7 +1,5 @@
 class_name GameManager extends Node2D
 
-@export var score_text: Label
-@export var level_text: Label
 @export var play_text: Label
 
 const CURRENCY_OBJECT := preload("res://Obstacles/Currency.tscn")
@@ -11,8 +9,6 @@ var level := -1:
 	set(l):
 		if level == l: return
 		level = l
-		if level_text:
-			level_text.text = str(level)
 		level_data = Level.from_number(level)
 		Events.level_changed.emit(level)
 var level_data: Level
@@ -20,8 +16,6 @@ var level_data: Level
 var score := 0.0:
 	set(s):
 		score = s
-		if score_text:
-			score_text.text = str(floori(score))
 		Events.score_changed.emit(score)
 
 var spawn_debt := 0.0
@@ -30,6 +24,8 @@ var last_picked_currency_time := 0.0
 func _ready() -> void:
 	Events.state_changed.connect(state_changed)
 	Events.picked_currency.connect(picked_currency)
+	get_tree().root.size_changed.connect(size_changed)
+	size_changed()
 
 func _physics_process(delta: float) -> void:
 	if not playing:
@@ -41,8 +37,8 @@ func _physics_process(delta: float) -> void:
 		last_picked_currency_time += delta
 	try_spawning()
 
-func state_changed(state: Events.GameState) -> void:
-	if state == Events.GameState.GAME:
+func state_changed(state: GameState.States) -> void:
+	if state == GameState.States.GAME:
 		start_game()
 	else:
 		end_game()
@@ -80,3 +76,7 @@ func end_game() -> void:
 func picked_currency() -> void:
 	score += 10
 	last_picked_currency_time = 0
+
+func size_changed() -> void:
+	var scaling: float = get_viewport().size.x / get_viewport_rect().size.x
+	material.set("shader_parameter/shadow_offset", Vector2(10, 10) * scaling)

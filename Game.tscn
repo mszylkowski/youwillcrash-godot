@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=38 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
@@ -10,10 +10,13 @@
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
+[ext_resource type="PackedScene" uid="uid://c3j4bp50vsbrk" path="res://Obstacles/Bar.tscn" id="7_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
 [ext_resource type="Script" uid="uid://des0au57e7gfd" path="res://Scripts/UI/CurrencyLabel.gd" id="7_yyih5"]
+[ext_resource type="PackedScene" uid="uid://cug3xc43q2uxb" path="res://Obstacles/Star.tscn" id="8_hmewc"]
 [ext_resource type="AudioStream" uid="uid://2u6vwk63ddfc" path="res://Audio/YWC click.mp3" id="8_qjyg3"]
 [ext_resource type="Texture2D" uid="uid://cvgq1x2n5b33n" path="res://Textures/Leaderboards.png" id="10_gwjdr"]
+[ext_resource type="Script" uid="uid://bwa8boii80qn5" path="res://Scripts/UI/ScoreLabel.gd" id="10_hmewc"]
 [ext_resource type="Texture2D" uid="uid://qpnu4gxe71tp" path="res://Textures/Achievements.png" id="11_lvtmh"]
 [ext_resource type="Script" uid="uid://cs0oqjqq40shr" path="res://Scripts/GameManager.gd" id="12_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/g5757.png" id="12_yyih5"]
@@ -47,6 +50,7 @@ line_spacing = 0.0
 font_size = 30
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yyih5"]
+resource_name = "ShadowShader"
 shader = ExtResource("2_lvtmh")
 shader_parameter/shadow_offset = Vector2(5, 5)
 shader_parameter/shadow_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
@@ -104,7 +108,7 @@ tracks/2/keys = {
 tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayButton/Play:scale:x")
+tracks/3/path = NodePath("PlayButton/PlayLabel:scale:x")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -115,7 +119,7 @@ tracks/3/keys = {
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayButton/Play:scale:y")
+tracks/4/path = NodePath("PlayButton/PlayLabel:scale:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -288,6 +292,7 @@ theme_override_font_sizes/font_size = 175
 text = "NOT"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="CRASH" type="Label" parent="Intro"]
 modulate = Color(1, 1, 1, 0)
@@ -308,12 +313,16 @@ text = "CRASH"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("score_text", "level_text", "play_text")]
+[node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("play_text")]
 material = SubResource("ShaderMaterial_yyih5")
 script = ExtResource("12_gwjdr")
-score_text = NodePath("../Score")
-level_text = NodePath("../Level")
-play_text = NodePath("../MainMenu/PlayButton/Play")
+play_text = NodePath("../MainMenu/PlayButton/PlayLabel")
+
+[node name="Bar" parent="GameManager" instance=ExtResource("7_cpsxm")]
+position = Vector2(-140, -109)
+
+[node name="Star" parent="GameManager" instance=ExtResource("8_hmewc")]
+position = Vector2(161, -86)
 
 [node name="Player" parent="." instance=ExtResource("2_yhmtn")]
 position = Vector2(0, 120)
@@ -334,6 +343,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_lvtmh")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("10_hmewc")
 metadata/_edit_use_anchors_ = true
 
 [node name="Dotscount" type="Sprite2D" parent="."]
@@ -389,7 +399,9 @@ input_pickable = true
 shape = SubResource("CircleShape2D_2vekm")
 one_way_collision_margin = 0.0
 
-[node name="Play" type="Label" parent="MainMenu/PlayButton"]
+[node name="PlayLabel" type="Label" parent="MainMenu/PlayButton"]
+unique_name_in_owner = true
+z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

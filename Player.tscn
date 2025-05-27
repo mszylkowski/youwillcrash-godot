@@ -11,9 +11,9 @@ radius = 27.0
 [node name="Player" type="Area2D" node_paths=PackedStringArray("shapes")]
 collision_mask = 10
 script = ExtResource("1_kne1u")
-shapes = [NodePath("Background2"), NodePath("Middle"), NodePath("Foreground")]
+shapes = [NodePath("Background"), NodePath("Middle"), NodePath("Foreground")]
 
-[node name="Background2" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(1.58831e-06, 0.398929, 0.499627, 1)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_e80uo")
@@ -21,11 +21,13 @@ script = ExtResource("3_e80uo")
 
 [node name="Middle" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0.8, 1, 1)
+top_level = true
 scale = Vector2(0.76, 0.76)
 texture = ExtResource("2_e80uo")
 script = ExtResource("3_e80uo")
 
 [node name="Foreground" type="Sprite2D" parent="."]
+top_level = true
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_e80uo")
 script = ExtResource("3_e80uo")

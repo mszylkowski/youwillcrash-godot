@@ -4,8 +4,8 @@ func _ready() -> void:
 	hide_all()
 	Events.state_changed.connect(state_changed)
 
-func state_changed(state: Events.GameState):
-	if state != Events.GameState.GAME:
+func state_changed(state: GameState.States):
+	if state != GameState.States.GAME:
 		visible = false
 		return
 	for child: Label in get_children():

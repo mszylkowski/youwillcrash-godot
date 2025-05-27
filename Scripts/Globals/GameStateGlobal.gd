@@ -1,7 +1,15 @@
 extends Node
 
+enum States {MAIN_MENU, GAME, SETTINGS, BOOSTS}
+
 const STATE_PATH := "user://state.cfg"
 const SCREEN := Rect2(-240, -450, 480, 900)
+
+var state: States = States.MAIN_MENU: ## Set the state via code directly.
+	set(s):
+		if state != s: Events.state_changed.emit(s)
+		if state == States.GAME and s == States.MAIN_MENU: Events.died.emit()
+		state = s
 
 var currency := 0:
 	set(v):
@@ -15,13 +23,11 @@ var highscore := 0:
 		Events.highscore_changed.emit(highscore)
 
 func _ready() -> void:
-	load_state()
+	load_config()
 	Events.score_changed.connect(
-		func(score: int) -> void:
-			if score > highscore:
-				highscore = score
+		func(score: int) -> void: if score > highscore: highscore = score
 	)
-	Events.died.connect(save_state)
+	Events.died.connect(save_config)
 
 ## Increases the currency, such as picking up items.
 func increase_currency(delta: int) -> void:
@@ -34,12 +40,12 @@ func decrease_currency(delta: int) -> bool:
 		return true
 	return false
 
-func save_state() -> void:
-	var state := ConfigFile.new()
-	state.set_value("game", "currency", currency)
-	state.set_value("game", "highscore", highscore)
-	state.set_value("game", "games_played", games_played)
-	state.save_encrypted(STATE_PATH, make_key())
+func save_config() -> void:
+	var config := ConfigFile.new()
+	config.set_value("game", "currency", currency)
+	config.set_value("game", "highscore", highscore)
+	config.set_value("game", "games_played", games_played)
+	config.save_encrypted(STATE_PATH, make_key())
 
 func make_key() -> PackedByteArray:
 	var text := ""
@@ -49,10 +55,10 @@ func make_key() -> PackedByteArray:
 		text += char(start)
 	return text.to_ascii_buffer()
 
-func load_state() -> void:
-	var state := ConfigFile.new()
+func load_config() -> void:
+	var config := ConfigFile.new()
 	if FileAccess.file_exists(STATE_PATH):
-		state.load_encrypted(STATE_PATH, make_key())
-		currency = state.get_value("game", "currency", 0)
-		highscore = state.get_value("game", "highscore", 0)
-		games_played = state.get_value("game", "games_played", 0)
+		config.load_encrypted(STATE_PATH, make_key())
+		currency = config.get_value("game", "currency", 0)
+		highscore = config.get_value("game", "highscore", 0)
+		games_played = config.get_value("game", "games_played", 0)

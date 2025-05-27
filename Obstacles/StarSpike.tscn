@@ -12,6 +12,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_0nk23")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(19.8001, 0.300083)
 rotation = 1.57079
 polygon = PackedVector2Array(-6, -23, -15, 10, -4, 23, 4, 23, 16, 9, 5, -23)
