@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=36 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
@@ -10,10 +10,8 @@
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
-[ext_resource type="PackedScene" uid="uid://c3j4bp50vsbrk" path="res://Obstacles/Bar.tscn" id="7_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
 [ext_resource type="Script" uid="uid://des0au57e7gfd" path="res://Scripts/UI/CurrencyLabel.gd" id="7_yyih5"]
-[ext_resource type="PackedScene" uid="uid://cug3xc43q2uxb" path="res://Obstacles/Star.tscn" id="8_hmewc"]
 [ext_resource type="AudioStream" uid="uid://2u6vwk63ddfc" path="res://Audio/YWC click.mp3" id="8_qjyg3"]
 [ext_resource type="Texture2D" uid="uid://cvgq1x2n5b33n" path="res://Textures/Leaderboards.png" id="10_gwjdr"]
 [ext_resource type="Script" uid="uid://bwa8boii80qn5" path="res://Scripts/UI/ScoreLabel.gd" id="10_hmewc"]
@@ -317,12 +315,6 @@ vertical_alignment = 1
 material = SubResource("ShaderMaterial_yyih5")
 script = ExtResource("12_gwjdr")
 play_text = NodePath("../MainMenu/PlayButton/PlayLabel")
-
-[node name="Bar" parent="GameManager" instance=ExtResource("7_cpsxm")]
-position = Vector2(-140, -109)
-
-[node name="Star" parent="GameManager" instance=ExtResource("8_hmewc")]
-position = Vector2(161, -86)
 
 [node name="Player" parent="." instance=ExtResource("2_yhmtn")]
 position = Vector2(0, 120)

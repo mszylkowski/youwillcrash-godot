@@ -1,0 +1,19 @@
+{
+	"disabled_build_options": {
+		"disable_3d": true,
+		"disable_3d_physics": true,
+		"disable_navigation": true,
+		"openxr": false
+	},
+	"disabled_classes": [
+		"Mesh",
+		"NavigationAgent2D",
+		"NavigationAgent3D",
+		"Node3D",
+		"Occluder3D",
+		"Shape3D",
+		"Texture3D",
+		"World3D"
+	],
+	"type": "build_profile"
+}
