@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvyfev83e4r3y"]
+
+[ext_resource type="Script" uid="uid://cmbarqwiua8nj" path="res://Obstacles/Bosses/TriangleSpiralBoss.gd" id="1_dtyy8"]
+
+[node name="TriangleSpiral" type="Node2D"]
+script = ExtResource("1_dtyy8")

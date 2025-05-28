@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkuwy6qsyy4fo"]
+
+[ext_resource type="Script" uid="uid://darf2186my3mt" path="res://Obstacles/Bosses/VShowerBoss.gd" id="1_x61qa"]
+
+[node name="VShower" type="Node2D"]
+script = ExtResource("1_x61qa")

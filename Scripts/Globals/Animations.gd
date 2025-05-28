@@ -4,6 +4,7 @@ class_name Animations extends Node
 ## Fades in while scaling up a UI element.
 static func animate_in(node: CanvasItem) -> Tween:
 	node.scale = Vector2(.8, .8)
+	node.modulate.a = 0
 	var tween := node.get_tree().create_tween().set_parallel(true)
 	tween.tween_property(node, "modulate:a", 1, .1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(node, "scale", Vector2(1, 1), .3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

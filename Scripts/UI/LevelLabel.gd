@@ -19,6 +19,7 @@ func show_label() -> void:
 	tween = Animations.animate_in(self)
 
 func level_changed(level: int) -> void:
+	if level <= 0: return
 	text = str(level)
 	if tween and tween.is_running():
 		return

@@ -1,4 +1,3 @@
-@tool
 class_name Player extends Area2D
 
 @onready var start_pos := global_position
@@ -14,6 +13,8 @@ func _ready() -> void:
 	body_entered.connect(on_collision)
 	area_exited.connect(on_collision)
 	state_changed(GameState.States.MAIN_MENU)
+	shapes[1].top_level = true
+	shapes[2].top_level = true
 
 func _physics_process(delta: float) -> void:
 	for i in range(shapes.size() - 1):

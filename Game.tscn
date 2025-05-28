@@ -52,6 +52,7 @@ resource_name = "ShadowShader"
 shader = ExtResource("2_lvtmh")
 shader_parameter/shadow_offset = Vector2(5, 5)
 shader_parameter/shadow_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+shader_parameter/alpha = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_lvtmh"]
 line_spacing = 0.0
@@ -250,11 +251,11 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Intro" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, 63)
 script = ExtResource("3_0yprl")
 
 [node name="DO" type="Label" parent="Intro"]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -273,7 +274,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NOT" type="Label" parent="Intro"]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -293,7 +293,6 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="CRASH" type="Label" parent="Intro"]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
