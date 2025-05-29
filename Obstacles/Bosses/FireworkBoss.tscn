@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlsa3kspe5tvw"]
+
+[ext_resource type="Script" uid="uid://cuyah77vxc07i" path="res://Obstacles/Bosses/FireworkBoss.gd" id="1_1f7hc"]
+
+[node name="Firework" type="Node2D"]
+script = ExtResource("1_1f7hc")

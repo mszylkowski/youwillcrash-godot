@@ -1,5 +1,7 @@
 extends Label
 
+var PICKUP_SOUND := preload("res://Audio/Pickup.ogg")
+
 func _ready() -> void:
 	Events.currency_changed.connect(on_change)
 	pivot_offset = size * .5
@@ -8,4 +10,4 @@ func _ready() -> void:
 func on_change(value: int) -> void:
 	text = str(value)
 	Animations.pop(self)
-	$"../AudioStreamPlayer2D".play()
+	Audios.play_sound(PICKUP_SOUND)

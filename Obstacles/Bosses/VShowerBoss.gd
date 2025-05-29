@@ -17,7 +17,7 @@ func _ready() -> void:
 	game_manager = get_parent()
 	assert(game_manager, "V Shower boss could not find parent on _ready")
 	direction = INITIAL_DIRECTIONS.pick_random()
-	Events.level_changed.connect(queue_free.unbind(1))
+	Events.level_changed.connect(queue_free.unbind(1), Object.ConnectFlags.CONNECT_ONE_SHOT)
 
 func _physics_process(_delta: float) -> void:
 	if not game_manager or game_manager.spawn_debt <= 0: return

@@ -3,6 +3,7 @@ class_name GameManager extends Node2D
 @export var play_text: Label
 
 const CURRENCY_OBJECT := preload("res://Obstacles/Currency.tscn")
+const NEXT_LEVEL_SOUND := preload("res://Audio/Stage.ogg")
 
 var playing := false
 var level := -1:
@@ -27,7 +28,7 @@ var last_picked_currency_time := 0.0
 func _ready() -> void:
 	Events.state_changed.connect(state_changed)
 	Events.picked_currency.connect(picked_currency)
-	Events.level_changed.connect(try_spawning_boss.unbind(1))
+	Events.level_changed.connect(level_changed.unbind(1))
 	get_tree().root.size_changed.connect(size_changed)
 	size_changed()
 
@@ -39,8 +40,7 @@ func _physics_process(delta: float) -> void:
 	spawn_debt += delta
 	if last_picked_currency_time >= 0:
 		last_picked_currency_time += delta
-	if not level_data.is_boss:
-		try_spawning()
+	try_spawning()
 
 func state_changed(state: GameState.States) -> void:
 	if state == GameState.States.GAME:
@@ -87,6 +87,8 @@ func size_changed() -> void:
 	var scaling: float = get_viewport().size.x / get_viewport_rect().size.x
 	material.set("shader_parameter/shadow_offset", Vector2(10, 10) * scaling)
 
-func try_spawning_boss() -> void:
+func level_changed() -> void:
+	if level > 1:
+		Audios.play_sound(NEXT_LEVEL_SOUND)
 	if not level_data or not level_data.is_boss: return
 	level_data.spawn_shape(self)

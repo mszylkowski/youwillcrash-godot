@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=35 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
 [ext_resource type="Script" uid="uid://des0au57e7gfd" path="res://Scripts/UI/CurrencyLabel.gd" id="7_yyih5"]
-[ext_resource type="AudioStream" uid="uid://2u6vwk63ddfc" path="res://Audio/YWC click.mp3" id="8_qjyg3"]
 [ext_resource type="Texture2D" uid="uid://cvgq1x2n5b33n" path="res://Textures/Leaderboards.png" id="10_gwjdr"]
 [ext_resource type="Script" uid="uid://bwa8boii80qn5" path="res://Scripts/UI/ScoreLabel.gd" id="10_hmewc"]
 [ext_resource type="Texture2D" uid="uid://qpnu4gxe71tp" path="res://Textures/Achievements.png" id="11_lvtmh"]
@@ -228,6 +227,7 @@ label_settings = SubResource("LabelSettings_elkpi")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_wuoie")
+metadata/_edit_use_anchors_ = true
 
 [node name="Stage" type="Label" parent="Level"]
 layout_mode = 1
@@ -360,9 +360,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("7_yyih5")
 metadata/_edit_use_anchors_ = true
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Dotscount"]
-stream = ExtResource("8_qjyg3")
 
 [node name="MainMenu" type="Node2D" parent="."]
 script = ExtResource("4_gwjdr")
