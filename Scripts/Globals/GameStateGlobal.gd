@@ -22,6 +22,8 @@ var highscore := 0:
 		highscore = h
 		Events.highscore_changed.emit(highscore)
 
+var death_causes: Dictionary[String, int] = {}
+
 func _ready() -> void:
 	load_config()
 	Events.score_changed.connect(
@@ -40,12 +42,16 @@ func decrease_currency(delta: int) -> bool:
 		return true
 	return false
 
+func register_death_cause(cause: String) -> void:
+	death_causes.set(cause, death_causes.get_or_add(cause, 0) + 1)
+
 func save_config() -> void:
 	var config := ConfigFile.new()
 	config.set_value("game", "currency", currency)
 	config.set_value("game", "highscore", highscore)
 	config.set_value("game", "games_played", games_played)
-	config.save_encrypted(STATE_PATH, make_key())
+	config.set_value("stats", "death_causes", death_causes)
+	config.save(STATE_PATH)
 
 func make_key() -> PackedByteArray:
 	var text := ""
@@ -58,7 +64,8 @@ func make_key() -> PackedByteArray:
 func load_config() -> void:
 	var config := ConfigFile.new()
 	if FileAccess.file_exists(STATE_PATH):
-		config.load_encrypted(STATE_PATH, make_key())
+		config.load(STATE_PATH)
 		currency = config.get_value("game", "currency", 0)
 		highscore = config.get_value("game", "highscore", 0)
 		games_played = config.get_value("game", "games_played", 0)
+		death_causes = config.get_value("stats", "death_causes", {} as Dictionary[String, int])

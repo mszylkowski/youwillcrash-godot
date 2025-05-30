@@ -14,7 +14,6 @@ func _ready() -> void:
 	assert(game_manager, "TriangleSpiral could not find parent on _ready")
 	initial_angle = randf() * TAU
 	remaining_change_count = randi_range(20, 50)
-	Events.level_changed.connect(queue_free.unbind(1), Object.ConnectFlags.CONNECT_ONE_SHOT)
 	game_manager.spawn_debt -= CHANGE_DIRECTION_COST * game_manager.level_data.cost_adjustment * 2
 
 func _physics_process(_delta: float) -> void:

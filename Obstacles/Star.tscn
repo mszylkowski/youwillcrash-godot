@@ -11,6 +11,7 @@ collision_layer = 2
 script = ExtResource("1_4hfxd")
 deviation = 0.174533
 rotation_speed = 5.23599
+metadata/death_cause = "star"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

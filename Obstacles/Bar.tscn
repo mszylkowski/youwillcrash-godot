@@ -10,6 +10,7 @@ size = Vector2(160, 25)
 collision_layer = 2
 script = ExtResource("1_vny7n")
 rotation_speed = 3.49066
+metadata/death_cause = "bar"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

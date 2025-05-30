@@ -6,8 +6,8 @@
 [node name="Boomerang" type="RigidBody2D"]
 collision_layer = 2
 script = ExtResource("1_kipl7")
-deviation_radians = 0.0
 rotation_speed = 6.28319
+metadata/death_cause = "boomerang"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

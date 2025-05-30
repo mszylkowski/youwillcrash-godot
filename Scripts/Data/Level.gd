@@ -21,7 +21,7 @@ const OBSTACLE_COST: Dictionary[Obstacles, float] = {
 	Obstacles.BAR : 2,
 	Obstacles.BOOMERANG: 2,
 	Obstacles.V_FLEET: 2.5,
-	Obstacles.SNAKE: 3,
+	Obstacles.SNAKE: 2.5,
 	Obstacles.STAR: 4,
 	Obstacles.V_SHOWER_BOSS: 0,
 	Obstacles.TRIANGLE_SPIRAL_BOSS: 0,
@@ -71,12 +71,13 @@ func set_boss(value: bool) -> Level:
 	is_boss = value
 	return self
 
-## Returns the cost of having spawned the shape.
-func spawn_shape(parent: Node2D) -> float:
+## Returns the spawned shape.
+func spawn_shape(parent: GameManager) -> Node2D:
 	var shapes: Array[Obstacles] = probabilities.keys()
 	var p := [] as Array[float]
 	p.assign(shapes.map(func(s: Obstacles) -> float: return probabilities.get(s)))
 	var selected := shapes[_rng.rand_weighted(p)]
 	var node := OBSTACLE_PREFABS[selected].instantiate() as Node2D
 	parent.add_child(node)
-	return OBSTACLE_COST.get(selected) * cost_adjustment
+	parent.spawn_debt -= OBSTACLE_COST.get(selected) * cost_adjustment
+	return node

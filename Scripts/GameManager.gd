@@ -24,6 +24,7 @@ var score := 0.0:
 
 var spawn_debt := 0.0
 var last_picked_currency_time := 0.0
+var current_boss: Node2D
 
 func _ready() -> void:
 	Events.state_changed.connect(state_changed)
@@ -50,16 +51,14 @@ func state_changed(state: GameState.States) -> void:
 
 func try_spawning() -> void:
 	if not level_data.is_boss and spawn_debt > 0:
-		var cost := level_data.spawn_shape(self)
-		spawn_debt = -cost
+		level_data.spawn_shape(self)
 	if last_picked_currency_time > 3:
 		var currency := CURRENCY_OBJECT.instantiate() as CurrencyPickup
 		add_child(currency)
 		last_picked_currency_time = -1
 
 func start_game() -> void:
-	if playing:
-		return
+	if playing: return
 	level = 1
 	score = 0
 	playing = true
@@ -68,13 +67,13 @@ func start_game() -> void:
 	material.set("shader_parameter/alpha", 1.)
 
 func end_game() -> void:
-	if not playing:
-		return
+	if not playing: return
 	playing = false
 	var tween := get_tree().create_tween().set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(material, "shader_parameter/alpha", 0., .5)
 	play_text.text = str(floori(score))
 	level = -1
+	current_boss = null
 	await tween.finished
 	for child in get_children():
 		child.queue_free()
@@ -90,5 +89,7 @@ func size_changed() -> void:
 func level_changed() -> void:
 	if level > 1:
 		Audios.play_sound(NEXT_LEVEL_SOUND)
-	if not level_data or not level_data.is_boss: return
-	level_data.spawn_shape(self)
+	if current_boss:
+		current_boss.queue_free()
+	if level_data and level_data.is_boss:
+		current_boss = level_data.spawn_shape(self)

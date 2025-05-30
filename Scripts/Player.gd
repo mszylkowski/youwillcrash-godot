@@ -35,6 +35,8 @@ func on_collision(other: Node2D) -> void:
 	if other.is_in_group("currency"):
 		(other as CurrencyPickup).pickup()
 		return
+	if GameState.state != GameState.States.GAME: return
+	GameState.register_death_cause(other.get_meta("death_cause", "unknown"))
 	GameState.state = GameState.States.MAIN_MENU
 
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)

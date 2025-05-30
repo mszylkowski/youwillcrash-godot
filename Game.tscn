@@ -164,39 +164,40 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 [node name="Bounds" type="Area2D" parent="."]
 collision_layer = 8
 metadata/_edit_lock_ = true
+metadata/death_cause = "bounds"
 
 [node name="Background" type="Sprite2D" parent="Bounds"]
 scale = Vector2(520, 940)
 texture = SubResource("GradientTexture1D_t88pq")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+[node name="PlayableArea" type="CollisionShape2D" parent="Bounds"]
 shape = SubResource("RectangleShape2D_qjyg3")
 debug_color = Color(0, 0.601379, 0.701202, 0)
 metadata/_edit_lock_ = true
 
-[node name="BoundOverlay" type="Sprite2D" parent="Bounds"]
+[node name="TopBound" type="Sprite2D" parent="Bounds"]
 z_index = 3
 position = Vector2(0, -670)
 scale = Vector2(1000, 400)
 texture = SubResource("GradientTexture1D_elkpi")
 metadata/_edit_lock_ = true
 
-[node name="BoundOverlay2" type="Sprite2D" parent="Bounds"]
+[node name="BottomBound" type="Sprite2D" parent="Bounds"]
 z_index = 3
 position = Vector2(0, 670)
 scale = Vector2(1000, 400)
 texture = SubResource("GradientTexture1D_elkpi")
 metadata/_edit_lock_ = true
 
-[node name="BoundOverlay3" type="Sprite2D" parent="Bounds"]
+[node name="RightBound" type="Sprite2D" parent="Bounds"]
 z_index = 3
 position = Vector2(460, 0)
 scale = Vector2(400, 1000)
 texture = SubResource("GradientTexture1D_elkpi")
 metadata/_edit_lock_ = true
 
-[node name="BoundOverlay4" type="Sprite2D" parent="Bounds"]
+[node name="LeftBound" type="Sprite2D" parent="Bounds"]
 z_index = 3
 position = Vector2(-460, 0)
 scale = Vector2(400, 1000)

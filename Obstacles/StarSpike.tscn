@@ -4,6 +4,7 @@
 
 [node name="StarSpike" type="RigidBody2D"]
 collision_layer = 2
+metadata/death_cause = "star"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(19.8001, 0.300083)

@@ -6,6 +6,7 @@
 [node name="Triangle" type="RigidBody2D"]
 collision_layer = 2
 script = ExtResource("1_oi2hj")
+metadata/death_cause = "triangle"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

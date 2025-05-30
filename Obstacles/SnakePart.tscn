@@ -7,6 +7,7 @@ size = Vector2(34, 34)
 
 [node name="SnakePart" type="StaticBody2D"]
 collision_layer = 2
+metadata/death_cause = "snake"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

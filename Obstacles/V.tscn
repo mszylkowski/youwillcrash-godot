@@ -6,6 +6,7 @@
 [node name="V" type="RigidBody2D"]
 collision_layer = 2
 script = ExtResource("1_540xm")
+metadata/death_cause = "v"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
