@@ -6,6 +6,7 @@ const CURRENCY_OBJECT := preload("res://Obstacles/Currency.tscn")
 const NEXT_LEVEL_SOUND := preload("res://Audio/Stage.ogg")
 
 var playing := false
+var level_factory := LevelFactory.classic
 var level := -1:
 	set(l):
 		if level == l: return
@@ -13,7 +14,7 @@ var level := -1:
 		if level == -1:
 			level_data = null
 		else:
-			level_data = Level.from_number(level)
+			level_data = level_factory.call(level)
 		Events.level_changed.emit(level)
 var level_data: Level
 
@@ -30,6 +31,7 @@ func _ready() -> void:
 	Events.state_changed.connect(state_changed)
 	Events.picked_currency.connect(picked_currency)
 	Events.level_changed.connect(level_changed.unbind(1))
+	Events.mode_changed.connect(mode_changed)
 	get_tree().root.size_changed.connect(size_changed)
 	size_changed()
 
@@ -93,3 +95,18 @@ func level_changed() -> void:
 		current_boss.queue_free()
 	if level_data and level_data.is_boss:
 		current_boss = level_data.spawn_shape(self)
+
+func mode_changed(mode: GameState.Modes) -> void:
+	match mode:
+		GameState.Modes.CLASSIC:
+			level_factory = LevelFactory.classic
+		GameState.Modes.SNAKE_DEN:
+			level_factory = LevelFactory.snake_den
+		GameState.Modes.FIREWORKS_SHOW:
+			level_factory = LevelFactory.firework_show
+		GameState.Modes.FIREWORK_HELL:
+			level_factory = LevelFactory.firework_hell
+		GameState.Modes.ALL_BOSSES:
+			level_factory = LevelFactory.all_bosses
+		GameState.Modes.RED_SHOWER:
+			level_factory = LevelFactory.red_shower

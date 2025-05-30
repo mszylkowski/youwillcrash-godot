@@ -39,26 +39,6 @@ var probabilities: Dictionary[Obstacles, float] = {}
 var cost_adjustment: float
 var is_boss := false
 
-static func from_number(number: int) -> Level:
-	var adjustment := 1 / (.75 * log(number) + 1.5)
-
-	match number:
-		_ when number % 5 == 0:
-			return Level.new(adjustment).add(BOSS_SHAPES.pick_random(), 1).set_boss(true)
-		1: return Level.new(adjustment).add(Obstacles.V, 1)
-		2: return Level.new(adjustment).add(Obstacles.TRIANGLE, .7).add(Obstacles.V, .3)
-		3: return Level.new(adjustment).add(MEDIUM_SHAPES.pick_random(), .6).add(Obstacles.TRIANGLE, .2).add(Obstacles.V, .2)
-		4: return Level.new(adjustment).add(Obstacles.V_FLEET, .6).add(Obstacles.BAR, .2).add(EASY_SHAPES.pick_random(), .2)
-		# Do not write manually the bosses here.
-		6: return Level.new(adjustment).add(Obstacles.STAR, .5).add(Obstacles.BAR, .25).add(EASY_SHAPES.pick_random(), .25)
-		7: return Level.new(adjustment).add(Obstacles.SNAKE, .5).add(MEDIUM_SHAPES.pick_random(), .25).add(EASY_SHAPES.pick_random(), .25)
-		_:
-			var shapes_count: int = [1, 2, 3, 4][_rng.rand_weighted([7, 5, 3, 1])]
-			var level := Level.new(adjustment)
-			for _i in range(shapes_count):
-				level.add(OBSTACLE_PREFABS.keys().pick_random() as Obstacles, randf_range(0.2, 0.5))
-			return level
-
 func _init(adjustment: float) -> void:
 	cost_adjustment = adjustment
 

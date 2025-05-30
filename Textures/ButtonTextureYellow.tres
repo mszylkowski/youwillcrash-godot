@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dnggca4npe84q"]
+
+[ext_resource type="Texture2D" uid="uid://b5ovqna3ogskk" path="res://Textures/snake.png" id="1_aetvs"]
+
+[resource]
+texture = ExtResource("1_aetvs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1

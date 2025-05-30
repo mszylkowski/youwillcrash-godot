@@ -1,6 +1,7 @@
 extends Node
 
 enum States {MAIN_MENU, GAME, SETTINGS, BOOSTS}
+enum Modes {CLASSIC, SNAKE_DEN, FIREWORKS_SHOW, FIREWORK_HELL, ALL_BOSSES, RED_SHOWER}
 
 const STATE_PATH := "user://state.cfg"
 const SCREEN := Rect2(-240, -450, 480, 900)
