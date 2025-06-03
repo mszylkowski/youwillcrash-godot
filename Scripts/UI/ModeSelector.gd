@@ -58,7 +58,7 @@ func _on_scroll_container_gui_input(event: InputEvent) -> void:
 		var target_idx := roundi(scroller.scroll_horizontal / item_size)
 		_scroll_to(target_idx)
 	elif event is InputEventMouseMotion and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
-		scroller.scroll_horizontal -= roundi((event as InputEventMouseMotion).screen_relative.x)
+		scroller.scroll_horizontal -= roundi((event as InputEventMouseMotion).relative.x)
 		var curr_idx := roundi(scroller.scroll_horizontal / item_size)
 		if target_pos != curr_idx:
 			target_pos = curr_idx
