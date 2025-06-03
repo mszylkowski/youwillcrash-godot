@@ -13,3 +13,6 @@ signal highscore_changed(highscore: int) ## When a new highscore was set.
 
 signal died() ## When player died.
 signal intro_finished() ## When the intro "DO NOT CRASH" finished.
+
+# Effectors
+signal change_border(border_size: Vector2) ## Change the border size

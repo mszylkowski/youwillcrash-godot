@@ -19,7 +19,7 @@ func toggle(value: bool) -> void:
 		animation.play("hide")
 
 func _handle_play_click(_v: Viewport, event: InputEvent, _s: int) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
+	if event is InputEventMouseButton and event.is_pressed() and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		if showing:
 			toggle(false)
 			GameState.state = GameState.States.GAME

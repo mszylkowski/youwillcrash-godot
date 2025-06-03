@@ -63,4 +63,4 @@ theme/default_font_antialiasing=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(1.58831e-06, 0.398929, 0.499627, 1)
+environment/defaults/default_clear_color=Color(0.827451, 0.929412, 0.968627, 1)
