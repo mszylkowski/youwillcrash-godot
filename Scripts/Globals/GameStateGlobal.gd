@@ -18,17 +18,22 @@ var currency := 0:
 		Events.currency_changed.emit(currency)
 
 var games_played := 0
-var highscore := 0:
-	set(h):
-		highscore = h
-		Events.highscore_changed.emit(highscore)
-
+var highscores: Dictionary[Modes, int] = {}
+var mode := Modes.CLASSIC:
+	set(m):
+		if m != mode:
+			mode = m
+			Events.mode_changed.emit(mode)
 var death_causes: Dictionary[String, int] = {}
 
 func _ready() -> void:
 	load_config()
 	Events.score_changed.connect(
-		func(score: int) -> void: if score > highscore: highscore = score
+		func(score: int) -> void:
+			if score > highscores.get_or_add(mode, 0):
+				highscores.set(mode, score)
+				if mode == Modes.CLASSIC:
+					Events.highscore_changed.emit(score)
 	)
 	Events.died.connect(save_config)
 
@@ -49,7 +54,7 @@ func register_death_cause(cause: String) -> void:
 func save_config() -> void:
 	var config := ConfigFile.new()
 	config.set_value("game", "currency", currency)
-	config.set_value("game", "highscore", highscore)
+	config.set_value("game", "highscores", highscores)
 	config.set_value("game", "games_played", games_played)
 	config.set_value("stats", "death_causes", death_causes)
 	config.save(STATE_PATH)
@@ -67,6 +72,6 @@ func load_config() -> void:
 	if FileAccess.file_exists(STATE_PATH):
 		config.load(STATE_PATH)
 		currency = config.get_value("game", "currency", 0)
-		highscore = config.get_value("game", "highscore", 0)
+		highscores = config.get_value("game", "highscores", {} as Dictionary[Modes, int])
 		games_played = config.get_value("game", "games_played", 0)
 		death_causes = config.get_value("stats", "death_causes", {} as Dictionary[String, int])

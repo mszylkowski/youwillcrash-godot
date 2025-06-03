@@ -1,5 +1,7 @@
 class_name ModeSelector extends Panel
 
+
+const CHANGE_AUDIO := preload("res://Audio/StarActivate.ogg")
 var modes_order: Array[GameState.Modes] = [
 	GameState.Modes.CLASSIC,
 	GameState.Modes.RED_SHOWER,
@@ -46,11 +48,11 @@ func _process(_delta: float) -> void:
 		mode_squares[i].pivot_offset = square_size * .5
 
 func _on_scroll_container_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.is_pressed():
-		_scroll_wheel(1)
+	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_RIGHT] and event.is_pressed():
+		if not pos_tween or not pos_tween.is_running(): _scroll_wheel(1)
 		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.is_pressed():
-		_scroll_wheel(-1)
+	elif event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_DOWN, MOUSE_BUTTON_WHEEL_LEFT] and event.is_pressed():
+		if not pos_tween or not pos_tween.is_running(): _scroll_wheel(-1)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
 		var target_idx := roundi(scroller.scroll_horizontal / item_size)
@@ -70,15 +72,18 @@ func _scroll_wheel(delta: int) -> void:
 func _scroll_to(idx: int) -> void:
 	if pos_tween and pos_tween.is_running():
 		pos_tween.kill()
-	target_pos = clampi(idx, 0, mode_squares.size())
+	var changed := target_pos != idx
+	target_pos = clampi(idx, 0, mode_squares.size() - 1)
 	pos_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	pos_tween.tween_property(scroller, "scroll_horizontal", target_pos * item_size, .3)
-	set_curr_mode(idx)
+	if changed:
+		set_curr_mode(target_pos)
 
 func set_curr_mode(idx: int) -> void:
 	%CurrMode.text = modes_names[idx]
-	Events.mode_changed.emit(modes_order[idx])
+	GameState.mode = modes_order[idx]
 	if label_tween and label_tween.is_running():
 		label_tween.kill()
 	%CurrMode.pivot_offset = %CurrMode.size * .5
 	label_tween = Animations.pop(%CurrMode)
+	Audios.play_sound(CHANGE_AUDIO)
