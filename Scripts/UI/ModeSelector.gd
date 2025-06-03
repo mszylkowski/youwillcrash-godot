@@ -1,12 +1,16 @@
 class_name ModeSelector extends Panel
 
-@export var modes_order: Array[GameState.Modes] = [
+var modes_order: Array[GameState.Modes] = [
 	GameState.Modes.CLASSIC,
+	GameState.Modes.RED_SHOWER,
 	GameState.Modes.SNAKE_DEN,
 	GameState.Modes.FIREWORKS_SHOW,
 	GameState.Modes.FIREWORK_HELL,
 	GameState.Modes.ALL_BOSSES,
-	GameState.Modes.RED_SHOWER
+]
+
+var modes_names: Array[String] = [
+	"Classic", "Red Shower", "Snake Den", "Fireworks Show", "Fireworks Hell", "All Bosses"
 ]
 
 @onready var scroller := %ScrollContainer as ScrollContainer
@@ -14,9 +18,11 @@ class_name ModeSelector extends Panel
 @onready var mode_squares := hbox.get_children() as Array[Node]
 @onready var square_size := mode_squares[0].size as Vector2
 @onready var square_sep := (hbox.size.x - square_size.x * mode_squares.size()) / (mode_squares.size() - 1)
+@onready var item_size := square_size.x + square_sep
 
 var pos_tween: Tween
-var target_pos := 0.
+var label_tween: Tween
+var target_pos := 0
 
 func _ready() -> void:
 	%Exit.pressed.connect(slide_out)
@@ -33,31 +39,46 @@ func slide_out() -> void:
 
 func _process(_delta: float) -> void:
 	var pos := scroller.scroll_horizontal
-	var item_size: float = square_size.x + square_sep
 	for i in range(mode_squares.size()):
 		var dist: float = clampf(abs(pos / item_size - i), 0.1, 1.1) - .1
 		var s := 1. / (dist * 1.25 + 1.)
 		mode_squares[i].scale = Vector2(s, s)
 		mode_squares[i].pivot_offset = square_size * .5
 
-
 func _on_scroll_container_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.is_pressed():
-		_scroll_wheel(square_size.x + square_sep)
+		_scroll_wheel(1)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.is_pressed():
-		_scroll_wheel(-square_size.x - square_sep)
+		_scroll_wheel(-1)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventMouseButton and event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
-		print("released ", event)
+		var target_idx := roundi(scroller.scroll_horizontal / item_size)
+		_scroll_to(target_idx)
 	elif event is InputEventMouseMotion and (event.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		scroller.scroll_horizontal -= roundi((event as InputEventMouseMotion).screen_relative.x)
+		var curr_idx := roundi(scroller.scroll_horizontal / item_size)
+		if target_pos != curr_idx:
+			target_pos = curr_idx
+			set_curr_mode(curr_idx)
 	elif event is InputEventScreenDrag:
 		get_viewport().set_input_as_handled()
 
-func _scroll_wheel(delta: float) -> void:
+func _scroll_wheel(delta: int) -> void:
+	_scroll_to(target_pos + delta)
+	
+func _scroll_to(idx: int) -> void:
 	if pos_tween and pos_tween.is_running():
 		pos_tween.kill()
-	target_pos = clampf(target_pos + delta, 0, scroller.get_child(0).size.x - scroller.size.x)
+	target_pos = clampi(idx, 0, mode_squares.size())
 	pos_tween = get_tree().create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	pos_tween.tween_property(scroller, "scroll_horizontal", target_pos, .3)
+	pos_tween.tween_property(scroller, "scroll_horizontal", target_pos * item_size, .3)
+	set_curr_mode(idx)
+
+func set_curr_mode(idx: int) -> void:
+	%CurrMode.text = modes_names[idx]
+	Events.mode_changed.emit(modes_order[idx])
+	if label_tween and label_tween.is_running():
+		label_tween.kill()
+	%CurrMode.pivot_offset = %CurrMode.size * .5
+	label_tween = Animations.pop(%CurrMode)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmla8e28xeh7s"]
+[gd_scene load_steps=16 format=3 uid="uid://cmla8e28xeh7s"]
 
 [ext_resource type="Script" uid="uid://cia3buqaijpct" path="res://Scripts/UI/ModeSelector.gd" id="1_g6dje"]
 [ext_resource type="Texture2D" uid="uid://dhep3ocyss3ha" path="res://Textures/Modes.png" id="2_1yd0u"]
@@ -16,8 +16,12 @@ texture_margin_bottom = 39.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ged1"]
 line_spacing = 0.0
-font_size = 30
-font_color = Color(0, 0.8, 1, 1)
+font_size = 45
+outline_size = 40
+outline_color = Color(0, 0.8, 1, 1)
+shadow_size = 136
+shadow_color = Color(0, 0.4, 0.501961, 1)
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5ctq"]
 atlas = ExtResource("2_1yd0u")
@@ -25,6 +29,10 @@ region = Rect2(0, 0, 300, 300)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bisgb"]
 load_path = "res://.godot/imported/Modes.png-6a323b986ca7934b0c0b5d95937f6954.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aeq37"]
+atlas = SubResource("CompressedTexture2D_bisgb")
+region = Rect2(300, 600, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w7ht3"]
 atlas = SubResource("CompressedTexture2D_bisgb")
@@ -45,9 +53,10 @@ region = Rect2(300, 300, 300, 300)
 atlas = SubResource("CompressedTexture2D_bisgb")
 region = Rect2(0, 600, 300, 300)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aeq37"]
-atlas = SubResource("CompressedTexture2D_bisgb")
-region = Rect2(300, 600, 300, 300)
+[sub_resource type="LabelSettings" id="LabelSettings_ptkj7"]
+line_spacing = 0.0
+font_size = 40
+font_color = Color(0, 0.4, 0.501961, 1)
 
 [node name="ModeSelector" type="Panel"]
 z_index = 2
@@ -80,6 +89,7 @@ offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
+alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -87,10 +97,6 @@ size_flags_vertical = 1
 text = "Select Game Mode"
 label_settings = SubResource("LabelSettings_7ged1")
 horizontal_alignment = 1
-
-[node name="Spacer" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -116,6 +122,12 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_y5ctq")
 
+[node name="RedShowerImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_aeq37")
+
 [node name="SnakeDenImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -140,15 +152,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_4my3f")
 
-[node name="RedShowerImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
+[node name="CurrMode" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
-texture = SubResource("AtlasTexture_aeq37")
-
-[node name="Spacer2" type="TextureRect" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+text = "Classic"
+label_settings = SubResource("LabelSettings_ptkj7")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
