@@ -68,7 +68,7 @@ func _on_scroll_container_gui_input(event: InputEvent) -> void:
 
 func _scroll_wheel(delta: int) -> void:
 	_scroll_to(target_pos + delta)
-	
+
 func _scroll_to(idx: int) -> void:
 	if pos_tween and pos_tween.is_running():
 		pos_tween.kill()

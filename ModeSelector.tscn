@@ -17,9 +17,9 @@ texture_margin_bottom = 39.0
 [sub_resource type="LabelSettings" id="LabelSettings_7ged1"]
 line_spacing = 0.0
 font_size = 45
-outline_size = 40
-outline_color = Color(0, 0.8, 1, 1)
-shadow_size = 136
+font_color = Color(0, 0.8, 1, 1)
+outline_size = 10
+shadow_size = 10
 shadow_color = Color(0, 0.4, 0.501961, 1)
 shadow_offset = Vector2(5, 5)
 
