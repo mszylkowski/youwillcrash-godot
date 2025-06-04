@@ -30,13 +30,13 @@ func _ready() -> void:
 	%Exit.pressed.connect(slide_out)
 
 func slide_in() -> void:
-	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(self, "global_position:y", -286, .5)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(self, "global_position:y", -300, .25)
 	Events.change_border.emit(Border.MENU_SIZE, Border.MENU_RADIUS)
 
 func slide_out() -> void:
-	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-	tween.tween_property(self, "global_position:y", 800, .5)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(self, "global_position:y", 800, .25)
 	Events.change_border.emit(Border.GAME_SIZE, Border.GAME_RADIUS)
 
 func _process(_delta: float) -> void:

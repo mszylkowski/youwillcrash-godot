@@ -1,8 +1,8 @@
 [gd_scene load_steps=37 format=3 uid="uid://b5pbc84g5mdio"]
 
-[ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://border.gdshader" id="1_jsoai"]
+[ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
 [ext_resource type="Script" uid="uid://laicckju2rm2" path="res://Scripts/UI/Border.gd" id="2_jsoai"]
-[ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://shadow.gdshader" id="2_lvtmh"]
+[ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://Materials/shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
 [ext_resource type="Script" uid="uid://bwaf4fbtqlnyu" path="res://Scripts/UI/DoNotCrash.gd" id="3_0yprl"]
@@ -286,6 +286,7 @@ vertical_alignment = 1
 
 [node name="GameManager" type="CanvasGroup" parent="." node_paths=PackedStringArray("play_text")]
 material = SubResource("ShaderMaterial_yyih5")
+fit_margin = 50.0
 script = ExtResource("12_gwjdr")
 play_text = NodePath("../MainMenu/PlayButton/PlayLabel")
 

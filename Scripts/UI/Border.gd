@@ -2,7 +2,7 @@ class_name Border extends Sprite2D
 
 const GAME_SIZE := Vector2(260, 470)
 const GAME_RADIUS := 20
-const MENU_SIZE := Vector2(280, 300)
+const MENU_SIZE := Vector2(260, 300)
 const MENU_RADIUS := 40
 
 var tween: Tween

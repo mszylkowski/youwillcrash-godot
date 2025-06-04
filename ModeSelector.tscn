@@ -1,18 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://cmla8e28xeh7s"]
+[gd_scene load_steps=17 format=3 uid="uid://cmla8e28xeh7s"]
 
 [ext_resource type="Script" uid="uid://cia3buqaijpct" path="res://Scripts/UI/ModeSelector.gd" id="1_g6dje"]
 [ext_resource type="Texture2D" uid="uid://dhep3ocyss3ha" path="res://Textures/Modes.png" id="2_1yd0u"]
+[ext_resource type="Script" uid="uid://bbkab7oi8h4xw" path="res://Scripts/UI/HighscoreLabel.gd" id="3_p2fi3"]
 [ext_resource type="StyleBox" uid="uid://dnggca4npe84q" path="res://Textures/ButtonTextureYellow.tres" id="6_ueob4"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0mevm"]
-load_path = "res://.godot/imported/player.png-37d6d449c686f6028362b8d8a235ada7.ctex"
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cpsxm"]
-texture = SubResource("CompressedTexture2D_0mevm")
-texture_margin_left = 39.4756
-texture_margin_top = 38.7815
-texture_margin_right = 39.4997
-texture_margin_bottom = 39.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptkj7"]
+bg_color = Color(0.827451, 0.929412, 0.968627, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ged1"]
 line_spacing = 0.0
@@ -58,23 +52,29 @@ line_spacing = 0.0
 font_size = 40
 font_color = Color(0, 0.4, 0.501961, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_p2fi3"]
+line_spacing = 0.0
+font_size = 20
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
 [node name="ModeSelector" type="Panel"]
 z_index = 2
+custom_minimum_size = Vector2(0, 600)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = -292.0
-offset_right = 264.0
+offset_left = -260.0
+offset_top = -320.0
+offset_right = 260.0
 offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(188, 286)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxTexture_cpsxm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ptkj7")
 script = ExtResource("1_g6dje")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -82,9 +82,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
 offset_top = 20.0
-offset_right = -20.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -107,8 +105,8 @@ vertical_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 94
-theme_override_constants/margin_right = 94
+theme_override_constants/margin_left = 110
+theme_override_constants/margin_right = 110
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -154,12 +152,32 @@ texture = SubResource("AtlasTexture_4my3f")
 
 [node name="CurrMode" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Classic"
 label_settings = SubResource("LabelSettings_ptkj7")
 horizontal_alignment = 1
+
+[node name="Highscore" type="Label" parent="VBoxContainer/CurrMode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -0.837502
+offset_right = 50.0
+offset_bottom = 39.1625
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "BEST: 0"
+label_settings = SubResource("LabelSettings_p2fi3")
+horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("3_p2fi3")
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -177,6 +195,6 @@ theme_override_styles/hover = ExtResource("6_ueob4")
 theme_override_styles/pressed = ExtResource("6_ueob4")
 theme_override_styles/normal = ExtResource("6_ueob4")
 action_mode = 0
-text = "  Go Back  "
+text = "  Select Mode  "
 
 [connection signal="gui_input" from="VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_gui_input"]

@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8c8v7"]
 size = Vector2(34, 34)
 
-[node name="SnakePart" type="StaticBody2D"]
+[node name="SnakePart" type="AnimatableBody2D"]
 collision_layer = 2
 metadata/death_cause = "snake"
 

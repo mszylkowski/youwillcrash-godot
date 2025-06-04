@@ -2,7 +2,7 @@ class_name Level extends Resource
 
 enum Obstacles {V, TRIANGLE, BAR, BOOMERANG, V_FLEET, STAR, SNAKE, V_SHOWER_BOSS, TRIANGLE_SPIRAL_BOSS, FIREWORK_BOSS}
 
-const OBSTACLE_PREFABS: Dictionary[Obstacles, PackedScene] = {
+const OBSTACLE_PREFABS: Dictionary[Obstacles, Variant] = {
 	Obstacles.V : preload("res://Obstacles/V.tscn"),
 	Obstacles.TRIANGLE: preload("res://Obstacles/Triangle.tscn"),
 	Obstacles.BAR : preload("res://Obstacles/Bar.tscn"),
@@ -10,9 +10,9 @@ const OBSTACLE_PREFABS: Dictionary[Obstacles, PackedScene] = {
 	Obstacles.V_FLEET: preload("res://Obstacles/VFleet.tscn"),
 	Obstacles.STAR: preload("res://Obstacles/Star.tscn"),
 	Obstacles.SNAKE: preload("res://Obstacles/Snake.tscn"),
-	Obstacles.V_SHOWER_BOSS: preload("res://Obstacles/Bosses/VShowerBoss.tscn"),
-	Obstacles.TRIANGLE_SPIRAL_BOSS: preload("res://Obstacles/Bosses/TriangleSpiralBoss.tscn"),
-	Obstacles.FIREWORK_BOSS: preload("res://Obstacles/Bosses/FireworkBoss.tscn")
+	Obstacles.V_SHOWER_BOSS: preload("res://Obstacles/Bosses/VShowerBoss.gd"),
+	Obstacles.TRIANGLE_SPIRAL_BOSS: preload("res://Obstacles/Bosses/TriangleSpiralBoss.gd"),
+	Obstacles.FIREWORK_BOSS: preload("res://Obstacles/Bosses/FireworkBoss.gd")
 }
 
 const OBSTACLE_COST: Dictionary[Obstacles, float] = {
@@ -57,7 +57,15 @@ func spawn_shape(parent: GameManager) -> Node2D:
 	var p := [] as Array[float]
 	p.assign(shapes.map(func(s: Obstacles) -> float: return probabilities.get(s)))
 	var selected := shapes[_rng.rand_weighted(p)]
-	var node := OBSTACLE_PREFABS[selected].instantiate() as Node2D
+	var prefab = OBSTACLE_PREFABS[selected]
+	var node: Node2D
+	if prefab is PackedScene:
+		node = prefab.instantiate()
+	elif prefab is Script:
+		node = prefab.new()
+	else:
+		push_error(prefab, " cannot be instantiated")
+		return
 	parent.add_child(node)
 	parent.spawn_debt -= OBSTACLE_COST.get(selected) * cost_adjustment
 	return node

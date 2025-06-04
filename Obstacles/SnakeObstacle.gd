@@ -1,11 +1,16 @@
 extends Node2D
 
+enum HueShiftMode {NO_SHIFT, PER_INSTANCE, PER_PART}
+
 @export_range(0.01, 1., .01) var move_time := .15  ## How often the snake moves forward
 @export var offset_x := 250
 @export var offset_y := 400
 @export var dist_between_parts := 40.0
 
+const HUE_SHIFT_SHADER := preload("res://Materials/hue_shift.gdshader") as Shader
 const SNAKE_PART := preload("res://Obstacles/SnakePart.tscn") as PackedScene
+var hue_shift_style := HueShiftMode.PER_PART
+var force_length := -1 ## Set to a positive value to force length.
 
 func _ready() -> void:
 	var angle = randi_range(0, 3)
@@ -28,9 +33,8 @@ func _ready() -> void:
 
 	var turn_move_max := (offset_y if angle % 2 else offset_x) * 3 / dist_between_parts
 	var turn_move := randi_range(roundi(turn_move_max * .25), roundi(turn_move_max * .75))
-	print("Snake (max=", turn_move_max, ", move=", turn_move, ")")
 	var next_vel := Vector2(-lin_vel.y, lin_vel.x) * (1 if randf() > .5 else -1)
-	var length := randi_range(5, 8)
+	var length := randi_range(6, 9) if force_length < 1 else force_length
 
 	var curr_pos := start_pos
 
@@ -40,13 +44,18 @@ func _ready() -> void:
 		part.global_position = curr_pos
 		add_child(part)
 
+	var snake_shift := randf_range(0, 1) if hue_shift_style != HueShiftMode.NO_SHIFT else 0.
+	var piece_shift := randf_range(.3, .6) / get_child_count() if hue_shift_style == HueShiftMode.PER_PART else 0.
+
 	var total_turn_move_max := (offset_y + offset_x) * 2 / dist_between_parts
 	for i in range(total_turn_move_max):
 		curr_pos += lin_vel if (i < turn_move) else next_vel
 		var part := get_child(0) as Node2D
-		part.global_position = curr_pos
 		scale_up(part)
+		part.global_position = curr_pos
 		move_child(part, get_child_count() - 1)
+		if hue_shift_style != HueShiftMode.NO_SHIFT:
+			set_hue_shift(part.get_child(0), snake_shift + sin(i * 1.) * piece_shift)
 		await get_tree().create_timer(move_time).timeout
 
 	queue_free()
@@ -57,3 +66,14 @@ func scale_up(part: Node2D) -> void:
 	var part_scale := part_sprite.scale
 	part_sprite.scale = Vector2.ZERO
 	tween.tween_property(part_sprite, "scale", part_scale, move_time)
+
+func set_hue_shift(node: Node2D, shift: float) -> void:
+	var mat: ShaderMaterial
+	if node.material and node.material is ShaderMaterial:
+		mat = node.material
+	else:
+		mat = ShaderMaterial.new()
+		mat.shader = HUE_SHIFT_SHADER
+		node.material = mat
+	mat.set_shader_parameter("shift_hue", shift)
+	print("Hue: ", mat.get_shader_parameter("shift_hue"))
