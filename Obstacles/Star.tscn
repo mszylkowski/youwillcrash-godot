@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cug3xc43q2uxb"]
+[gd_scene load_steps=5 format=3 uid="uid://cug3xc43q2uxb"]
 
 [ext_resource type="Script" uid="uid://bi54s13r0prkx" path="res://Obstacles/StarObstacle.gd" id="1_4hfxd"]
 [ext_resource type="Texture2D" uid="uid://b4whqbia7sd1s" path="res://Textures/star.png" id="2_oy4fm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tod4e"]
 size = Vector2(65, 65)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4hfxd"]
+polygon = PackedVector2Array(0, -43, 5, -41, 8, -36, 14, -14, 37, -8, 41, -5, 43, 0, 41, 6, 36, 8, 14, 15, 7, 39, 4, 42, 0, 43, -5, 41, -7, 38, -14, 15, -39, 7, -42, 4, -43, 0, -42, -5, -39, -7, -14, -15, -7, -39, -4, -42)
 
 [node name="Star" type="RigidBody2D"]
 collision_layer = 2
@@ -22,3 +25,6 @@ texture = ExtResource("2_oy4fm")
 visible = false
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_tod4e")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4hfxd")

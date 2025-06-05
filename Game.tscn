@@ -1,6 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=41 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
+[ext_resource type="Script" uid="uid://lc720et2mt2a" path="res://Scripts/VisualsManager.gd" id="1_w2501"]
 [ext_resource type="Script" uid="uid://laicckju2rm2" path="res://Scripts/UI/Border.gd" id="2_jsoai"]
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://Materials/shadow.gdshader" id="2_lvtmh"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
@@ -22,6 +23,7 @@
 [ext_resource type="Script" uid="uid://bbkab7oi8h4xw" path="res://Scripts/UI/HighscoreLabel.gd" id="16_elkpi"]
 [ext_resource type="PackedScene" uid="uid://cmla8e28xeh7s" path="res://ModeSelector.tscn" id="22_0mevm"]
 [ext_resource type="StyleBox" uid="uid://dnggca4npe84q" path="res://Textures/ButtonTextureYellow.tres" id="22_7ged1"]
+[ext_resource type="PackedScene" uid="uid://dt18p6nv1iorq" path="res://Obstacles/V.tscn" id="23_0mevm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jsoai"]
 shader = ExtResource("1_jsoai")
@@ -48,8 +50,16 @@ font_size = 30
 resource_name = "ShadowShader"
 shader = ExtResource("2_lvtmh")
 shader_parameter/shadow_offset = Vector2(5, 5)
-shader_parameter/shadow_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+shader_parameter/shadow_color = Color(0, 0.399, 0.5, 1)
 shader_parameter/alpha = 1.0
+
+[sub_resource type="Gradient" id="Gradient_w2501"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jsoai"]
+gradient = SubResource("Gradient_w2501")
+width = 100
+height = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_lvtmh"]
 line_spacing = 0.0
@@ -159,12 +169,22 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [node name="World" type="Node2D"]
 
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_light", "darkness_modulate", "game_area")]
+script = ExtResource("1_w2501")
+player_light = NodePath("../Player/PointLight2D")
+darkness_modulate = NodePath("CanvasModulate")
+game_area = NodePath("../GameManager")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Visuals"]
+visibility_layer = 0
+
 [node name="Bounds" type="Area2D" parent="."]
 collision_layer = 8
 metadata/_edit_lock_ = true
 metadata/death_cause = "bounds"
 
 [node name="Border" type="Sprite2D" parent="Bounds"]
+light_mask = 0
 z_index = 4096
 material = SubResource("ShaderMaterial_jsoai")
 scale = Vector2(5000, 5000)
@@ -176,6 +196,10 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_qjyg3")
 debug_color = Color(0, 0.601379, 0.701202, 0)
 metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Bounds"]
+color = Color(0.827451, 0.929412, 0.968627, 1)
+polygon = PackedVector2Array(-260, -480, 260, -480, 260, 480, -260, 480)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -242,6 +266,7 @@ offset_bottom = -131.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 245
 text = "DO"
 horizontal_alignment = 1
@@ -260,6 +285,7 @@ offset_bottom = 108.271
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 175
 text = "NOT"
 horizontal_alignment = 1
@@ -279,6 +305,7 @@ offset_bottom = 241.271
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 105
 text = "CRASH"
 horizontal_alignment = 1
@@ -290,8 +317,20 @@ fit_margin = 50.0
 script = ExtResource("12_gwjdr")
 play_text = NodePath("../MainMenu/PlayButton/PlayLabel")
 
+[node name="V" parent="GameManager" instance=ExtResource("23_0mevm")]
+position = Vector2(-172, -92)
+
 [node name="Player" parent="." instance=ExtResource("2_yhmtn")]
+light_mask = 0
 position = Vector2(0, 120)
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+scale = Vector2(20, 20)
+energy = 0.0
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_jsoai")
+height = 391.0
 
 [node name="Score" type="Label" parent="."]
 anchors_preset = 15
@@ -529,8 +568,10 @@ theme_override_styles/pressed = ExtResource("22_7ged1")
 theme_override_styles/normal = ExtResource("22_7ged1")
 action_mode = 0
 text = "  Select Mode  "
+metadata/_edit_use_anchors_ = true
 
 [node name="ModeSelector" parent="MainMenu" instance=ExtResource("22_0mevm")]
+light_mask = 0
 offset_top = 540.0
 offset_bottom = 1112.0
 

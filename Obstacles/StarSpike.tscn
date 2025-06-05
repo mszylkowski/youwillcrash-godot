@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://di1ewqnvkv4dl"]
+[gd_scene load_steps=3 format=3 uid="uid://di1ewqnvkv4dl"]
 
 [ext_resource type="Texture2D" uid="uid://jqpbai8w2kwj" path="res://Textures/spike.png" id="2_0nk23"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kpv5b"]
+polygon = PackedVector2Array(9, -14, 15, -14, 38, -7, 42, -3, 43, 0, 42, 4, 38, 8, 15, 15, 9, 15, 6, 13, -2, 6, -4, 0, -2, -5, 5, -12)
 
 [node name="StarSpike" type="RigidBody2D"]
 collision_layer = 2
@@ -17,3 +20,6 @@ visible = false
 position = Vector2(19.8001, 0.300083)
 rotation = 1.57079
 polygon = PackedVector2Array(-6, -23, -15, 10, -4, 23, 4, 23, 16, 9, 5, -23)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_kpv5b")

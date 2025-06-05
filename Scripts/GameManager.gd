@@ -16,7 +16,7 @@ var level := -1:
 		else:
 			level_data = level_factory.call(level)
 		Events.level_changed.emit(level)
-var level_data: Level
+static var level_data: Level
 
 var score := 0.0:
 	set(s):

@@ -1,5 +1,7 @@
 class_name StarObstacle extends RigidBody2D
 
+enum HueShiftMode {NO_SHIFT, PER_INSTANCE, OVER_TIME}
+
 const ACTIVATE_SOUND := preload("res://Audio/StarActivate.ogg")
 const EXPLODE_SOUND := preload("res://Audio/StarExplode.ogg")
 
@@ -14,6 +16,7 @@ const EXPLODE_SOUND := preload("res://Audio/StarExplode.ogg")
 
 var force_spawn_angle := -1. ## Force the angle to spawn at. Use positive numbers only, between 0 and TAU.
 var force_spawn_deviation := 0. ## Force the angle to spawn at. Use positive numbers only, between 0 and TAU.
+var hue_shift_style := HueShiftMode.NO_SHIFT ## Set the way that the colors will shift.
 
 const SPIKE_PREFAB := preload("res://Obstacles/StarSpike.tscn")
 
@@ -25,12 +28,21 @@ func _ready() -> void:
 	global_position = Vector2.from_angle(angle) * offset
 	linear_velocity = -Vector2.from_angle(spawn_angle) * speed
 	angular_velocity = randf() * rotation_speed
-
 	var destroy_variance := randf_range(.8 - explode_deviation, .8 + explode_deviation)
 	var destroy_time := (offset / speed) * destroy_variance
-	get_tree().create_timer(destroy_time).timeout.connect(explode)
 
-func explode() -> void:
+	var to_shift := 0.
+	if hue_shift_style == HueShiftMode.PER_INSTANCE:
+		to_shift = randf_range(0, 1)
+		Recolor.set_hue_shift(get_child(0), to_shift)
+	elif hue_shift_style == HueShiftMode.OVER_TIME:
+		var from_shift := randf_range(0, 1)
+		to_shift = from_shift + randf_range(.3, .5)
+		Recolor.animate_hue_shift(get_child(0), from_shift, to_shift, destroy_time)
+
+	get_tree().create_timer(destroy_time).timeout.connect(explode.bind(to_shift))
+
+func explode(shift = 0.) -> void:
 	Audios.play_sound(ACTIVATE_SOUND)
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "scale", Vector2(.5, .5), .1)
@@ -43,5 +55,7 @@ func explode() -> void:
 		spike.global_rotation_degrees = global_rotation_degrees + 90 * i
 		spike.linear_velocity = Vector2.from_angle(spike.global_rotation) * spike_speed
 		spike.global_position = global_position
+		if shift != 0.:
+			Recolor.set_hue_shift(spike.get_child(0), shift)
 		spike.get_tree().create_timer(offset / spike_speed * 2.).timeout.connect(spike.queue_free)
 	queue_free()

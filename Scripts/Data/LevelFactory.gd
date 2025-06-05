@@ -22,7 +22,7 @@ static func classic(number: int) -> Level:
 
 static func snake_den(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)
-	return Level.new(adjustment).add(Level.Obstacles.SNAKE, 1)
+	return Level.new(adjustment).add(Level.Obstacles.SNAKE_DEN_BOSS, 1).set_boss(true)
 
 static func firework_show(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)

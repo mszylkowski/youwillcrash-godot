@@ -1,4 +1,4 @@
-extends Node2D
+class_name SnakeObstacle extends Node2D
 
 enum HueShiftMode {NO_SHIFT, PER_INSTANCE, PER_PART}
 
@@ -7,9 +7,8 @@ enum HueShiftMode {NO_SHIFT, PER_INSTANCE, PER_PART}
 @export var offset_y := 400
 @export var dist_between_parts := 40.0
 
-const HUE_SHIFT_SHADER := preload("res://Materials/hue_shift.gdshader") as Shader
 const SNAKE_PART := preload("res://Obstacles/SnakePart.tscn") as PackedScene
-var hue_shift_style := HueShiftMode.PER_PART
+var hue_shift_style := HueShiftMode.NO_SHIFT
 var force_length := -1 ## Set to a positive value to force length.
 
 func _ready() -> void:
@@ -55,7 +54,7 @@ func _ready() -> void:
 		part.global_position = curr_pos
 		move_child(part, get_child_count() - 1)
 		if hue_shift_style != HueShiftMode.NO_SHIFT:
-			set_hue_shift(part.get_child(0), snake_shift + sin(i * 1.) * piece_shift)
+			Recolor.set_hue_shift(part.get_child(0), snake_shift + sin(i * 1.) * piece_shift)
 		await get_tree().create_timer(move_time).timeout
 
 	queue_free()
@@ -66,14 +65,3 @@ func scale_up(part: Node2D) -> void:
 	var part_scale := part_sprite.scale
 	part_sprite.scale = Vector2.ZERO
 	tween.tween_property(part_sprite, "scale", part_scale, move_time)
-
-func set_hue_shift(node: Node2D, shift: float) -> void:
-	var mat: ShaderMaterial
-	if node.material and node.material is ShaderMaterial:
-		mat = node.material
-	else:
-		mat = ShaderMaterial.new()
-		mat.shader = HUE_SHIFT_SHADER
-		node.material = mat
-	mat.set_shader_parameter("shift_hue", shift)
-	print("Hue: ", mat.get_shader_parameter("shift_hue"))

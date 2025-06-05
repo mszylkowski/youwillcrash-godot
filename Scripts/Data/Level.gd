@@ -1,6 +1,6 @@
 class_name Level extends Resource
 
-enum Obstacles {V, TRIANGLE, BAR, BOOMERANG, V_FLEET, STAR, SNAKE, V_SHOWER_BOSS, TRIANGLE_SPIRAL_BOSS, FIREWORK_BOSS}
+enum Obstacles {V, TRIANGLE, BAR, BOOMERANG, V_FLEET, STAR, SNAKE, V_SHOWER_BOSS, TRIANGLE_SPIRAL_BOSS, FIREWORK_BOSS, SNAKE_DEN_BOSS}
 
 const OBSTACLE_PREFABS: Dictionary[Obstacles, Variant] = {
 	Obstacles.V : preload("res://Obstacles/V.tscn"),
@@ -12,7 +12,8 @@ const OBSTACLE_PREFABS: Dictionary[Obstacles, Variant] = {
 	Obstacles.SNAKE: preload("res://Obstacles/Snake.tscn"),
 	Obstacles.V_SHOWER_BOSS: preload("res://Obstacles/Bosses/VShowerBoss.gd"),
 	Obstacles.TRIANGLE_SPIRAL_BOSS: preload("res://Obstacles/Bosses/TriangleSpiralBoss.gd"),
-	Obstacles.FIREWORK_BOSS: preload("res://Obstacles/Bosses/FireworkBoss.gd")
+	Obstacles.FIREWORK_BOSS: preload("res://Obstacles/Bosses/FireworkBoss.gd"),
+	Obstacles.SNAKE_DEN_BOSS: preload("res://Obstacles/Bosses/SnakeDenBoss.gd")
 }
 
 const OBSTACLE_COST: Dictionary[Obstacles, float] = {
@@ -23,15 +24,12 @@ const OBSTACLE_COST: Dictionary[Obstacles, float] = {
 	Obstacles.V_FLEET: 2.5,
 	Obstacles.SNAKE: 2.5,
 	Obstacles.STAR: 4,
-	Obstacles.V_SHOWER_BOSS: 0,
-	Obstacles.TRIANGLE_SPIRAL_BOSS: 0,
-	Obstacles.FIREWORK_BOSS: 0,
 }
 
 const EASY_SHAPES: Array[Obstacles] = [Obstacles.V, Obstacles.TRIANGLE]
 const MEDIUM_SHAPES: Array[Obstacles] = [Obstacles.BAR, Obstacles.BOOMERANG]
 const HARD_SHAPES: Array[Obstacles] = [Obstacles.V_FLEET, Obstacles.SNAKE, Obstacles.STAR]
-const BOSS_SHAPES: Array[Obstacles] = [Obstacles.V_SHOWER_BOSS, Obstacles.TRIANGLE_SPIRAL_BOSS, Obstacles.FIREWORK_BOSS]
+const BOSS_SHAPES: Array[Obstacles] = [Obstacles.V_SHOWER_BOSS, Obstacles.TRIANGLE_SPIRAL_BOSS, Obstacles.FIREWORK_BOSS, Obstacles.SNAKE_DEN_BOSS]
 
 static var _rng := RandomNumberGenerator.new()
 
@@ -67,5 +65,5 @@ func spawn_shape(parent: GameManager) -> Node2D:
 		push_error(prefab, " cannot be instantiated")
 		return
 	parent.add_child(node)
-	parent.spawn_debt -= OBSTACLE_COST.get(selected) * cost_adjustment
+	parent.spawn_debt -= OBSTACLE_COST.get(selected) * cost_adjustment if OBSTACLE_COST.has(selected) else 0
 	return node

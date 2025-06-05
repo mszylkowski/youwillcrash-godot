@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c70cj30w8on77"]
+[gd_scene load_steps=4 format=3 uid="uid://c70cj30w8on77"]
 
 [ext_resource type="Texture2D" uid="uid://b5ovqna3ogskk" path="res://Textures/snake.png" id="2_t4vws"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tgqha"]
+polygon = PackedVector2Array(-11, -17, 11, -17, 14, -16, 16, -14, 17, -11, 17, 11, 16, 14, 14, 16, 10, 17, -11, 17, -14, 16, -16, 14, -17, 10, -17, -12, -16, -14, -14, -16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8c8v7"]
 size = Vector2(34, 34)
@@ -13,6 +16,11 @@ metadata/death_cause = "snake"
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_t4vws")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+rotation = -1.5708
+scale = Vector2(2, 2)
+occluder = SubResource("OccluderPolygon2D_tgqha")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

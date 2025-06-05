@@ -1,4 +1,4 @@
-class_name TriangleSpiralBoss extends Node2D
+class_name VShowerBoss extends Node2D
 
 const V_OBSTACLE := preload("res://Obstacles/V.tscn") as PackedScene
 const ALL_DIRECTIONS: Array[PerpendicularObstacle.Directions] = [

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://lpgve2qermsi"]
+[gd_scene load_steps=4 format=3 uid="uid://lpgve2qermsi"]
 
 [ext_resource type="Script" uid="uid://csfuvfsylfu7c" path="res://Obstacles/SimpleObstacle.gd" id="1_oi2hj"]
 [ext_resource type="Texture2D" uid="uid://cmtwc4ax00lum" path="res://Textures/triangle.png" id="2_oi2hj"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oi2hj"]
+polygon = PackedVector2Array(15, -27, 28, -27, 32, -21, 32, 20, 28, 26, 15, 27, -30, 9, -32, 5, -32, -9, -27, -12)
 
 [node name="Triangle" type="RigidBody2D"]
 collision_layer = 2
@@ -17,3 +20,6 @@ texture = ExtResource("2_oi2hj")
 visible = false
 rotation = 1.5708
 polygon = PackedVector2Array(24.9999, -32.0001, 26.9999, -19.0001, 8.00012, 32, -8.99988, 32, -28.0001, -16.9999, -25.0001, -31.9999)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_oi2hj")

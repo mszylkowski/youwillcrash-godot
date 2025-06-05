@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3j4bp50vsbrk"]
+[gd_scene load_steps=5 format=3 uid="uid://c3j4bp50vsbrk"]
 
 [ext_resource type="Script" uid="uid://csfuvfsylfu7c" path="res://Obstacles/SimpleObstacle.gd" id="1_vny7n"]
 [ext_resource type="Texture2D" uid="uid://crvuup5q0eu56" path="res://Textures/bar.png" id="2_vny7n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_geti0"]
 size = Vector2(160, 25)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vny7n"]
+polygon = PackedVector2Array(-73, -12, 72, -12, 76, -10, 79, -7, 80, -4, 80, 4, 78, 8, 76, 10, 72, 12, -72, 12, -76, 10, -78, 8, -80, 4, -80, -5, -78, -9)
 
 [node name="Bar" type="RigidBody2D"]
 collision_layer = 2
@@ -20,3 +23,6 @@ texture = ExtResource("2_vny7n")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_geti0")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_vny7n")
