@@ -1,5 +1,7 @@
 extends Node2D
 
+const DO_NOT_CRASH_SOUND := preload("res://Audio/UiSelect.wav")
+
 func _ready() -> void:
 	hide_all()
 	Events.state_changed.connect(state_changed)
@@ -20,8 +22,12 @@ func state_changed(state: GameState.States):
 	if _should_cancel(): return
 
 	visible = true
-	for child: Label in get_children():
-		await Animations.animate_in(child).finished
+	for i: int in range(get_child_count()):
+		var audio := Audios.play_sound(DO_NOT_CRASH_SOUND)
+		audio.pitch_scale = 3. * (1. - i * .2)
+		audio.volume_linear = .6 + (i * .2)
+		await Animations.animate_in(get_child(i) as Label).finished
+		await get_tree().create_timer(.2).timeout
 		if _should_cancel(): return
 
 	await get_tree().create_timer(.3).timeout

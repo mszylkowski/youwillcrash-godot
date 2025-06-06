@@ -90,7 +90,7 @@ func size_changed() -> void:
 
 func level_changed() -> void:
 	if level > 1:
-		Audios.play_sound(NEXT_LEVEL_SOUND)
+		Audios.play_sound(NEXT_LEVEL_SOUND).volume_linear = .4
 	if current_boss:
 		current_boss.queue_free()
 	if level_data and level_data.is_boss:

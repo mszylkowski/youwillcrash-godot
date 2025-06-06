@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=46 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
 [ext_resource type="Script" uid="uid://lc720et2mt2a" path="res://Scripts/VisualsManager.gd" id="1_w2501"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
+[ext_resource type="Material" uid="uid://dcyyul55y1o8n" path="res://Materials/WavyMaterial.tres" id="5_y5ctq"]
 [ext_resource type="Texture2D" uid="uid://c2bgrbnbufw78" path="res://Textures/Upgrades.png" id="6_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://bqxp4hh38j5ii" path="res://Textures/Rate.png" id="7_joorw"]
 [ext_resource type="Script" uid="uid://des0au57e7gfd" path="res://Scripts/UI/CurrencyLabel.gd" id="7_yyih5"]
@@ -21,9 +22,11 @@
 [ext_resource type="Script" uid="uid://cs0oqjqq40shr" path="res://Scripts/GameManager.gd" id="12_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/g5757.png" id="12_yyih5"]
 [ext_resource type="Script" uid="uid://bbkab7oi8h4xw" path="res://Scripts/UI/HighscoreLabel.gd" id="16_elkpi"]
+[ext_resource type="Texture2D" uid="uid://b6xdc0x8pilmc" path="res://Textures/Sound.png" id="19_bisgb"]
+[ext_resource type="Texture2D" uid="uid://ctvtd6ja0f8uh" path="res://Textures/NoSound.png" id="20_y5ctq"]
+[ext_resource type="Script" uid="uid://dct6qja07fkm6" path="res://Scripts/UI/SoundToggle.gd" id="21_y5ctq"]
 [ext_resource type="PackedScene" uid="uid://cmla8e28xeh7s" path="res://ModeSelector.tscn" id="22_0mevm"]
 [ext_resource type="StyleBox" uid="uid://dnggca4npe84q" path="res://Textures/ButtonTextureYellow.tres" id="22_7ged1"]
-[ext_resource type="PackedScene" uid="uid://dt18p6nv1iorq" path="res://Obstacles/V.tscn" id="23_0mevm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jsoai"]
 shader = ExtResource("1_jsoai")
@@ -162,18 +165,24 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 line_spacing = 0.0
 font_size = 46
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bisgb"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_2vekm"]
 line_spacing = 0.0
 font_size = 50
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y5ctq"]
+size = Vector2(520, 940)
+
 [node name="World" type="Node2D"]
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_light", "darkness_modulate", "game_area")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_light", "darkness_modulate", "game_area", "water_waves")]
 script = ExtResource("1_w2501")
 player_light = NodePath("../Player/PointLight2D")
 darkness_modulate = NodePath("CanvasModulate")
 game_area = NodePath("../GameManager")
+water_waves = NodePath("../WaterWaves")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Visuals"]
 visibility_layer = 0
@@ -205,7 +214,9 @@ polygon = PackedVector2Array(-260, -480, 260, -480, 260, 480, -260, 480)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_xkndl")
+volume_db = -10.0
 autoplay = true
+bus = &"Music"
 
 [node name="Level" type="Label" parent="."]
 anchors_preset = 15
@@ -317,9 +328,6 @@ fit_margin = 50.0
 script = ExtResource("12_gwjdr")
 play_text = NodePath("../MainMenu/PlayButton/PlayLabel")
 
-[node name="V" parent="GameManager" instance=ExtResource("23_0mevm")]
-position = Vector2(-172, -92)
-
 [node name="Player" parent="." instance=ExtResource("2_yhmtn")]
 light_mask = 0
 position = Vector2(0, 120)
@@ -331,6 +339,7 @@ shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_jsoai")
 height = 391.0
+metadata/_edit_lock_ = true
 
 [node name="Score" type="Label" parent="."]
 anchors_preset = 15
@@ -352,6 +361,7 @@ script = ExtResource("10_hmewc")
 metadata/_edit_use_anchors_ = true
 
 [node name="Dotscount" type="Sprite2D" parent="."]
+z_index = 2
 position = Vector2(0, -430)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_t88pq")
@@ -473,6 +483,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="SoundToggle" type="CheckBox" parent="MainMenu/TopUI"]
+unique_name_in_owner = true
+z_index = 2
+offset_left = 376.0
+offset_top = -924.0
+offset_right = 504.0
+offset_bottom = -796.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bisgb")
+theme_override_icons/checked = ExtResource("19_bisgb")
+theme_override_icons/unchecked = ExtResource("20_y5ctq")
+button_pressed = true
+script = ExtResource("21_y5ctq")
+metadata/_edit_use_anchors_ = true
+
 [node name="BottomUI" type="Node2D" parent="MainMenu"]
 scale = Vector2(0.5, 0.5)
 
@@ -528,6 +552,7 @@ position = Vector2(-4, 858)
 texture = ExtResource("12_yyih5")
 
 [node name="HighScore" type="Label" parent="MainMenu/BottomUI"]
+z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -574,5 +599,12 @@ metadata/_edit_use_anchors_ = true
 light_mask = 0
 offset_top = 540.0
 offset_bottom = 1112.0
+
+[node name="WaterWaves" type="Sprite2D" parent="."]
+z_index = 1
+material = ExtResource("5_y5ctq")
+position = Vector2(0, 980)
+scale = Vector2(1.09615, 1.05745)
+texture = SubResource("PlaceholderTexture2D_y5ctq")
 
 [connection signal="pressed" from="MainMenu/BottomUI/ModeSelector" to="MainMenu/ModeSelector" method="slide_in"]

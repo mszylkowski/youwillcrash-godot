@@ -1,7 +1,6 @@
 class_name ModeSelector extends Panel
 
 
-const CHANGE_AUDIO := preload("res://Audio/StarActivate.ogg")
 var modes_order: Array[GameState.Modes] = [
 	GameState.Modes.CLASSIC,
 	GameState.Modes.RED_SHOWER,
@@ -33,11 +32,13 @@ func slide_in() -> void:
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(self, "global_position:y", -300, .25)
 	Events.change_border.emit(Border.MENU_SIZE, Border.MENU_RADIUS)
+	Audios.play_ui_sound()
 
 func slide_out() -> void:
 	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(self, "global_position:y", 800, .25)
 	Events.change_border.emit(Border.GAME_SIZE, Border.GAME_RADIUS)
+	Audios.play_ui_sound()
 
 func _process(_delta: float) -> void:
 	var pos := scroller.scroll_horizontal
@@ -86,4 +87,4 @@ func set_curr_mode(idx: int) -> void:
 		label_tween.kill()
 	%CurrMode.pivot_offset = %CurrMode.size * .5
 	label_tween = Animations.pop(%CurrMode)
-	Audios.play_sound(CHANGE_AUDIO)
+	Audios.play_ui_sound_small()

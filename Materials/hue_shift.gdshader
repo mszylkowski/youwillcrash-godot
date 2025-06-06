@@ -26,6 +26,6 @@ void fragment() {
 		vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
 		color_rgb=c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 	}
-	
+
 	COLOR.rgb = color_rgb.rgb;
 }

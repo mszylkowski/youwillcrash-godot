@@ -2,8 +2,8 @@ class_name StarObstacle extends RigidBody2D
 
 enum HueShiftMode {NO_SHIFT, PER_INSTANCE, OVER_TIME}
 
-const ACTIVATE_SOUND := preload("res://Audio/StarActivate.ogg")
-const EXPLODE_SOUND := preload("res://Audio/StarExplode.ogg")
+const ACTIVATE_SOUND := preload("res://Audio/WaterClick.wav")
+const EXPLODE_SOUND := preload("res://Audio/Popping.mp3")
 
 @export var speed := 200.0
 @export var offset := 600
@@ -48,7 +48,8 @@ func explode(shift = 0.) -> void:
 	tween.tween_property(self, "scale", Vector2(.5, .5), .1)
 	tween.tween_property(self, "scale", Vector2(1, 1), .3)
 	await tween.finished
-	Audios.play_sound(EXPLODE_SOUND)
+	var audio := Audios.play_sound(EXPLODE_SOUND)
+	audio.pitch_scale = randf_range(.8, 1.5)
 	for i in range(4):
 		var spike := SPIKE_PREFAB.instantiate() as RigidBody2D
 		get_parent().add_child(spike)

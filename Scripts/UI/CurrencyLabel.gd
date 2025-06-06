@@ -1,6 +1,6 @@
 extends Label
 
-var PICKUP_SOUND := preload("res://Audio/Pickup.ogg")
+var PICKUP_SOUND := preload("res://Audio/UiSelect.wav")
 
 func _ready() -> void:
 	Events.currency_changed.connect(on_change)

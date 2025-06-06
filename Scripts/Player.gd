@@ -26,6 +26,7 @@ func state_changed(state: GameState.States) -> void:
 			%SwipeController.process_mode = Node.PROCESS_MODE_INHERIT
 			set_sizes(SCALES_SMALL)
 			set_deferred("monitoring", true)
+			Audios.play_ui_sound()
 		GameState.States.MAIN_MENU:
 			%SwipeController.process_mode = Node.PROCESS_MODE_DISABLED
 			set_sizes(SCALES_LARGE)

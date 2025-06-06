@@ -57,6 +57,7 @@ func save_config() -> void:
 	config.set_value("game", "highscores", highscores)
 	config.set_value("game", "games_played", games_played)
 	config.set_value("stats", "death_causes", death_causes)
+	config.set_value("settings", "sound", SoundToggle.enabled)
 	config.save(STATE_PATH)
 
 func make_key() -> PackedByteArray:
@@ -75,3 +76,4 @@ func load_config() -> void:
 		highscores = config.get_value("game", "highscores", {} as Dictionary[Modes, int])
 		games_played = config.get_value("game", "games_played", 0)
 		death_causes = config.get_value("stats", "death_causes", {} as Dictionary[String, int])
+		SoundToggle.enabled = config.get_value("settings", "sound", true)
