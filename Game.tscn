@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=49 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
 [ext_resource type="Script" uid="uid://lc720et2mt2a" path="res://Scripts/VisualsManager.gd" id="1_w2501"]
@@ -43,11 +43,24 @@ size = Vector2(480, 900)
 
 [sub_resource type="LabelSettings" id="LabelSettings_elkpi"]
 line_spacing = 0.0
-font_size = 200
+font_size = 140
 
 [sub_resource type="LabelSettings" id="LabelSettings_qjyg3"]
 line_spacing = 0.0
 font_size = 30
+
+[sub_resource type="Gradient" id="Gradient_y5ctq"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.16, 0.912, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w7ht3"]
+gradient = SubResource("Gradient_y5ctq")
+width = 260
+height = 260
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yyih5"]
 resource_name = "ShadowShader"
@@ -228,9 +241,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -161.0
-offset_top = -87.0
+offset_top = -126.68
 offset_right = 159.0
-offset_bottom = 192.167
+offset_bottom = 152.487
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(160, 140)
@@ -245,11 +258,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Stage" type="Label" parent="Level"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.611043
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.611044
 offset_left = -37.5
 offset_top = -137.583
 offset_right = 37.5
@@ -263,6 +276,24 @@ label_settings = SubResource("LabelSettings_qjyg3")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Progress" type="TextureProgressBar" parent="Level"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -159.583
+offset_right = 120.0
+offset_bottom = 80.4165
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 150.0
+fill_mode = 8
+radial_initial_angle = 180.0
+texture_progress = SubResource("GradientTexture2D_w7ht3")
 
 [node name="Intro" type="Node2D" parent="."]
 visible = false
