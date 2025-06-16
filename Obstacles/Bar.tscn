@@ -7,7 +7,7 @@
 size = Vector2(160, 25)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vny7n"]
-polygon = PackedVector2Array(-73, -12, 72, -12, 76, -10, 79, -7, 80, -4, 80, 4, 78, 8, 76, 10, 72, 12, -72, 12, -76, 10, -78, 8, -80, 4, -80, -5, -78, -9)
+polygon = PackedVector2Array(-71, -8.5, 71, -8.5, 74, -7, 76, -3, 76, 4, 74, 7, 71, 8.5, -71, 8.5, -74, 7, -76, 4, -76, -3, -75, -6)
 
 [node name="Bar" type="RigidBody2D"]
 collision_layer = 2

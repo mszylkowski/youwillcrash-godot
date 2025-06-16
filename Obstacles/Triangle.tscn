@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmtwc4ax00lum" path="res://Textures/triangle.png" id="2_oi2hj"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oi2hj"]
-polygon = PackedVector2Array(15, -27, 28, -27, 32, -21, 32, 20, 28, 26, 15, 27, -30, 9, -32, 5, -32, -9, -27, -12)
+polygon = PackedVector2Array(16, -22, 26, -22, 28, -20, 28, 20, 27, 22, 18, 22, -26, 6, -28, 4, -28, -5, -26, -8)
 
 [node name="Triangle" type="RigidBody2D"]
 collision_layer = 2

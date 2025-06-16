@@ -101,7 +101,7 @@ func _scroll_to(idx: int) -> void:
 
 func set_curr_mode(idx: int) -> void:
 	%CurrMode.text = MODES_NAMES[idx]
-	if GameState.currency <= modes_unlocks[idx]:
+	if GameState.currency < modes_unlocks[idx]:
 		%Exit.disabled = true
 		%Exit.self_modulate = Color(1, 1, 1, .5)
 		return

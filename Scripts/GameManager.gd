@@ -110,3 +110,5 @@ func mode_changed(mode: GameState.Modes) -> void:
 			level_factory = LevelFactory.all_bosses
 		GameState.Modes.RED_SHOWER:
 			level_factory = LevelFactory.red_shower
+		GameState.Modes.PITCH_BLACK:
+			level_factory = LevelFactory.pitch_black

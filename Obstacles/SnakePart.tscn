@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ovqna3ogskk" path="res://Textures/snake.png" id="2_t4vws"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tgqha"]
-polygon = PackedVector2Array(-11, -17, 11, -17, 14, -16, 16, -14, 17, -11, 17, 11, 16, 14, 14, 16, 10, 17, -11, 17, -14, 16, -16, 14, -17, 10, -17, -12, -16, -14, -14, -16)
+polygon = PackedVector2Array(11, -14, 13, -13, 14, -11, 14, 11, 13, 13, 11, 14, -11, 14, -13, 13, -14, 11, -14, -11, -13, -13, -11, -14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8c8v7"]
 size = Vector2(34, 34)

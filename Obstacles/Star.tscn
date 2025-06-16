@@ -7,7 +7,7 @@
 size = Vector2(65, 65)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4hfxd"]
-polygon = PackedVector2Array(0, -43, 5, -41, 8, -36, 14, -14, 37, -8, 41, -5, 43, 0, 41, 6, 36, 8, 14, 15, 7, 39, 4, 42, 0, 43, -5, 41, -7, 38, -14, 15, -39, 7, -42, 4, -43, 0, -42, -5, -39, -7, -14, -15, -7, -39, -4, -42)
+polygon = PackedVector2Array(0, -39, 3, -38, 12, -11, 37, -3, 39, 0, 38, 3, 11, 11, 4, 38, 0, 39, -3, 38, -11, 11, -38, 3, -39, 0, -38, -3, -11, -12, -3, -38)
 
 [node name="Star" type="RigidBody2D"]
 collision_layer = 2
