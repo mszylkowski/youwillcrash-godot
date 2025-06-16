@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=47 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
 [ext_resource type="Script" uid="uid://lc720et2mt2a" path="res://Scripts/VisualsManager.gd" id="1_w2501"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://bwa8boii80qn5" path="res://Scripts/UI/ScoreLabel.gd" id="10_hmewc"]
 [ext_resource type="Texture2D" uid="uid://qpnu4gxe71tp" path="res://Textures/Achievements.png" id="11_lvtmh"]
 [ext_resource type="Script" uid="uid://cs0oqjqq40shr" path="res://Scripts/GameManager.gd" id="12_gwjdr"]
-[ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/g5757.png" id="12_yyih5"]
+[ext_resource type="Texture2D" uid="uid://dlqbs2shiti8g" path="res://Textures/Gear.png" id="12_yyih5"]
 [ext_resource type="Script" uid="uid://bbkab7oi8h4xw" path="res://Scripts/UI/HighscoreLabel.gd" id="16_elkpi"]
 [ext_resource type="Texture2D" uid="uid://b6xdc0x8pilmc" path="res://Textures/Sound.png" id="19_bisgb"]
 [ext_resource type="Texture2D" uid="uid://ctvtd6ja0f8uh" path="res://Textures/NoSound.png" id="20_y5ctq"]
@@ -159,6 +159,11 @@ radius = 178.07
 [sub_resource type="LabelSettings" id="LabelSettings_u44n3"]
 line_spacing = 0.0
 font_size = 120
+font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y5ctq"]
+line_spacing = 0.0
+font_size = 30
 font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gwjdr"]
@@ -434,6 +439,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="ModeLabel" type="Label" parent="MainMenu/PlayButton/PlayLabel"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = 65.0
+offset_right = 117.0
+offset_bottom = 106.875
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 70)
+size_flags_horizontal = 4
+theme = ExtResource("4_t88pq")
+text = "CLASSIC"
+label_settings = SubResource("LabelSettings_y5ctq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TopUI" type="Node2D" parent="MainMenu"]
 scale = Vector2(0.5, 0.5)
 
@@ -490,12 +518,27 @@ offset_left = 376.0
 offset_top = -924.0
 offset_right = 504.0
 offset_bottom = -796.0
+mouse_default_cursor_shape = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bisgb")
 theme_override_icons/checked = ExtResource("19_bisgb")
 theme_override_icons/unchecked = ExtResource("20_y5ctq")
 button_pressed = true
 script = ExtResource("21_y5ctq")
 metadata/_edit_use_anchors_ = true
+
+[node name="LinkButton" type="LinkButton" parent="MainMenu/TopUI"]
+offset_left = -496.0
+offset_top = -920.0
+offset_right = -376.0
+offset_bottom = -800.0
+action_mode = 0
+uri = "https://play.google.com/store/apps/details?id=com.montevisoft.youwillcrash"
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/TopUI/LinkButton"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
+texture = ExtResource("7_joorw")
 
 [node name="BottomUI" type="Node2D" parent="MainMenu"]
 scale = Vector2(0.5, 0.5)
@@ -580,6 +623,7 @@ offset_top = 700.0
 offset_right = 189.0
 offset_bottom = 816.0
 size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
 theme_override_colors/font_hover_pressed_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_colors/font_hover_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_colors/font_color = Color(0.737391, 0.591089, 0, 1)
@@ -603,8 +647,8 @@ offset_bottom = 1112.0
 [node name="WaterWaves" type="Sprite2D" parent="."]
 z_index = 1
 material = ExtResource("5_y5ctq")
-position = Vector2(0, 980)
-scale = Vector2(1.09615, 1.05745)
+position = Vector2(0, 1040)
+scale = Vector2(1.09615, 1.15319)
 texture = SubResource("PlaceholderTexture2D_y5ctq")
 
 [connection signal="pressed" from="MainMenu/BottomUI/ModeSelector" to="MainMenu/ModeSelector" method="slide_in"]

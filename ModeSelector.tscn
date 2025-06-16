@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cmla8e28xeh7s"]
+[gd_scene load_steps=19 format=3 uid="uid://cmla8e28xeh7s"]
 
 [ext_resource type="Script" uid="uid://cia3buqaijpct" path="res://Scripts/UI/ModeSelector.gd" id="1_g6dje"]
 [ext_resource type="Texture2D" uid="uid://dhep3ocyss3ha" path="res://Textures/Modes.png" id="2_1yd0u"]
@@ -21,6 +21,10 @@ shadow_offset = Vector2(5, 5)
 atlas = ExtResource("2_1yd0u")
 region = Rect2(0, 0, 300, 300)
 
+[sub_resource type="LabelSettings" id="LabelSettings_q8j5w"]
+line_spacing = 0.0
+font_size = 36
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bisgb"]
 load_path = "res://.godot/imported/Modes.png-6a323b986ca7934b0c0b5d95937f6954.ctex"
 
@@ -39,9 +43,13 @@ load_path = "res://.godot/imported/Modes.png-6a323b986ca7934b0c0b5d95937f6954.ct
 atlas = SubResource("CompressedTexture2D_8ktx7")
 region = Rect2(0, 300, 300, 300)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gebyw"]
-atlas = SubResource("CompressedTexture2D_bisgb")
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2fi3"]
+atlas = ExtResource("2_1yd0u")
 region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gebyw"]
+atlas = ExtResource("2_1yd0u")
+region = Rect2(0, 900, 300, 300)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4my3f"]
 atlas = SubResource("CompressedTexture2D_bisgb")
@@ -99,6 +107,7 @@ horizontal_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 6
 follow_focus = true
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
@@ -120,11 +129,47 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_y5ctq")
 
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/ClassicImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
+
 [node name="RedShowerImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_aeq37")
+
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/RedShowerImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
 
 [node name="SnakeDenImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -132,23 +177,119 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_w7ht3")
 
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/SnakeDenImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
+
 [node name="FireworkShowImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_hwsgv")
 
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/FireworkShowImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
+
 [node name="FireworkHellImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
+texture = SubResource("AtlasTexture_p2fi3")
+
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/FireworkHellImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
+
+[node name="PitchBlackImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 texture = SubResource("AtlasTexture_gebyw")
+
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/PitchBlackImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
 
 [node name="AllBossesImage" type="TextureRect" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 texture = SubResource("AtlasTexture_4my3f")
+
+[node name="Unlocks" type="Label" parent="VBoxContainer/ScrollContainer/MarginContainer/HBoxContainer/AllBossesImage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.1667
+offset_right = 20.0
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+text = "Unlocks after
+50 points"
+label_settings = SubResource("LabelSettings_q8j5w")
+horizontal_alignment = 1
 
 [node name="CurrMode" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
@@ -183,6 +324,8 @@ script = ExtResource("3_p2fi3")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_disabled_color = Color(0.943723, 0.891454, 0.770373, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_colors/font_hover_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_colors/font_color = Color(0.737391, 0.591089, 0, 1)
@@ -190,11 +333,12 @@ theme_override_colors/font_focus_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.737391, 0.591089, 0, 1)
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = ExtResource("6_ueob4")
+theme_override_styles/disabled = ExtResource("6_ueob4")
 theme_override_styles/hover_pressed = ExtResource("6_ueob4")
 theme_override_styles/hover = ExtResource("6_ueob4")
 theme_override_styles/pressed = ExtResource("6_ueob4")
 theme_override_styles/normal = ExtResource("6_ueob4")
 action_mode = 0
-text = "  Select Mode  "
+text = "  Select  "
 
 [connection signal="gui_input" from="VBoxContainer/ScrollContainer" to="." method="_on_scroll_container_gui_input"]

@@ -25,17 +25,9 @@ func level_changed() -> void:
 		set_lightness(true)
 		set_water(false)
 		return
-	var is_boss := GameManager.level_data.is_boss
-	if is_boss:
-		var curr_light := randf() > .4
-		var curr_water := curr_light and randf() > .5
-		if not curr_light and player_light.energy > .5:
-			Audios.play_sound(DARKNESS_SOUND)
-		set_lightness(curr_light)
-		set_water(curr_water)
-	else:
-		set_lightness(true)
-		set_water(false)
+	var visual := GameManager.level_data.visual
+	set_lightness(visual != Level.Visuals.DARK)
+	set_water(visual == Level.Visuals.WATER)
 
 func set_lightness(light: bool) -> void:
 	var tween := get_tree().create_tween().set_parallel(true)
@@ -47,7 +39,7 @@ func set_lightness(light: bool) -> void:
 
 func set_water(water: bool) -> void:
 	var tween := get_tree().create_tween().set_parallel(true)
-	tween.tween_property(water_waves, "position:y", 0 if water else 980, 1.5)
+	tween.tween_property(water_waves, "position:y", 0 if water else 1050, 1.5)
 	tween.tween_property(AudioServer.get_bus_effect(2, 0) as AudioEffectFilter, "cutoff_hz", 1500 if water else 20000, 1.5)
 	tween.tween_property(AudioServer.get_bus_effect(2, 1) as AudioEffectChorus, "wet", .5 if water else 0., 1.5)
 	await tween.finished

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx83lm4e6qpk6"
-path="res://.godot/imported/CornerBorder.png-75eb8d268437b8b5022bc3c2856653f5.ctex"
+uid="uid://dlqbs2shiti8g"
+path="res://.godot/imported/Gear.png-ad537fd1cbcace62f99d67a3b95324de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/CornerBorder.png"
-dest_files=["res://.godot/imported/CornerBorder.png-75eb8d268437b8b5022bc3c2856653f5.ctex"]
+source_file="res://Textures/Gear.png"
+dest_files=["res://.godot/imported/Gear.png-ad537fd1cbcace62f99d67a3b95324de.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false

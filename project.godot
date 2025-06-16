@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="You Will Crash"
-config/version="0.1.8"
+config/version="0.1.10"
 run/main_scene="uid://b5pbc84g5mdio"
 config/custom_user_dir_name="Montevisoft/YouWillCrash"
 config/features=PackedStringArray("4.4", "GL Compatibility")

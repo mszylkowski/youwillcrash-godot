@@ -1,6 +1,7 @@
 class_name Level extends Resource
 
 enum Obstacles {V, TRIANGLE, BAR, BOOMERANG, V_FLEET, STAR, SNAKE, V_SHOWER_BOSS, TRIANGLE_SPIRAL_BOSS, FIREWORK_BOSS, SNAKE_DEN_BOSS}
+enum Visuals {NONE, DARK, WATER}
 
 const OBSTACLE_PREFABS: Dictionary[Obstacles, Variant] = {
 	Obstacles.V : preload("res://Obstacles/V.tscn"),
@@ -30,12 +31,14 @@ const EASY_SHAPES: Array[Obstacles] = [Obstacles.V, Obstacles.TRIANGLE]
 const MEDIUM_SHAPES: Array[Obstacles] = [Obstacles.BAR, Obstacles.BOOMERANG]
 const HARD_SHAPES: Array[Obstacles] = [Obstacles.V_FLEET, Obstacles.SNAKE, Obstacles.STAR]
 const BOSS_SHAPES: Array[Obstacles] = [Obstacles.V_SHOWER_BOSS, Obstacles.TRIANGLE_SPIRAL_BOSS, Obstacles.FIREWORK_BOSS, Obstacles.SNAKE_DEN_BOSS]
+const SPECIAL_VISUALS: Array[Visuals] = [Visuals.DARK, Visuals.WATER]
 
 static var _rng := RandomNumberGenerator.new()
 
 var probabilities: Dictionary[Obstacles, float] = {}
 var cost_adjustment: float
 var is_boss := false
+var visual := Visuals.NONE
 
 func _init(adjustment: float) -> void:
 	cost_adjustment = adjustment
@@ -47,6 +50,10 @@ func add(shape: Obstacles, probability: float) -> Level:
 ## Spawns just once at first and then doesn't spawn any more.
 func set_boss(value: bool) -> Level:
 	is_boss = value
+	return self
+
+func set_visual(v: Visuals) -> Level:
+	visual = v
 	return self
 
 ## Returns the spawned shape.

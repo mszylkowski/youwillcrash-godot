@@ -3,13 +3,10 @@
 [ext_resource type="Shader" uid="uid://co7p8qq5m6syi" path="res://Materials/wavy.gdshader" id="1_xk6nt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ppbcm"]
+noise_type = 0
 frequency = 0.005
 fractal_type = 2
 fractal_octaves = 4
-domain_warp_type = 1
-domain_warp_amplitude = 20.695
-domain_warp_frequency = 0.075
-domain_warp_fractal_octaves = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l2bmm"]
 seamless = true
@@ -21,7 +18,7 @@ noise = SubResource("FastNoiseLite_ppbcm")
 shader = ExtResource("1_xk6nt")
 shader_parameter/waterNoise = SubResource("NoiseTexture2D_l2bmm")
 shader_parameter/waterColor = Color(0.131229, 0.294878, 0.626218, 1)
-shader_parameter/colorCorrection = 0.5
+shader_parameter/colorCorrection = 0.65
 shader_parameter/distortionStrength = 1.0
 shader_parameter/distortionScale = 0.3
-shader_parameter/distortionSpeed = 0.02
+shader_parameter/distortionSpeed = 0.03

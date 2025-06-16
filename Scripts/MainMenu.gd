@@ -8,6 +8,7 @@ func _ready() -> void:
 	%PlayButton.input_event.connect(_handle_play_click)
 	Events.died.connect(toggle.bind(true))
 	Events.score_changed.connect(score_changed)
+	Events.mode_changed.connect(mode_changed)
 
 func toggle(value: bool) -> void:
 	if showing == value:
@@ -27,3 +28,6 @@ func _handle_play_click(_v: Viewport, event: InputEvent, _s: int) -> void:
 func score_changed(value: int) -> void:
 	if value > 10:
 		%PlayLabel.text = str(value)
+
+func mode_changed(value: GameState.Modes) -> void:
+	%ModeLabel.text = ModeSelector.MODES_NAMES[value].to_upper()
