@@ -23,7 +23,7 @@ static func classic(number: int) -> Level:
 static func snake_den(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)
 	return Level.new(adjustment).add(Level.Obstacles.SNAKE_DEN_BOSS, 1).set_boss(true) \
-		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 else Level.Visuals.NONE)
+		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 == 0 else Level.Visuals.NONE)
 
 static func firework_show(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)
