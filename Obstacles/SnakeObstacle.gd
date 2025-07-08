@@ -2,7 +2,7 @@ class_name SnakeObstacle extends Node2D
 
 enum HueShiftMode {NO_SHIFT, PER_INSTANCE, PER_PART}
 
-@export_range(0.01, 1., .01) var move_time := .15  ## How often the snake moves forward
+@export_range(0.01, 1., .01) var move_time := .18  ## How often the snake moves forward
 @export var offset_x := 250
 @export var offset_y := 400
 @export var dist_between_parts := 40.0

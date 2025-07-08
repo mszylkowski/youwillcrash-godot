@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://7yaym1xdc2eo"
-path="res://.godot/imported/Darkness.wav-d1a6467359af0d4ef5eee707679b9dcc.sample"
+uid="uid://cq0e0cmbj2jpd"
+path="res://.godot/imported/Glitch.wav-59bbb8e9c7a64e2729211f003cbf34cb.sample"
 
 [deps]
 
-source_file="res://Audio/Darkness.wav"
-dest_files=["res://.godot/imported/Darkness.wav-d1a6467359af0d4ef5eee707679b9dcc.sample"]
+source_file="res://Audio/Glitch.wav"
+dest_files=["res://.godot/imported/Glitch.wav-59bbb8e9c7a64e2729211f003cbf34cb.sample"]
 
 [params]
 

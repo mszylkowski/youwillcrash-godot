@@ -12,7 +12,7 @@ const EXPLODE_SOUND := preload("res://Audio/Popping.mp3")
 
 @export_category("Explosion")
 @export_range(0, 1, .1) var explode_deviation := 0.3
-@export var spike_speed := 500.
+@export var spike_speed := 400.
 
 var force_spawn_angle := -1. ## Force the angle to spawn at. Use positive numbers only, between 0 and TAU.
 var force_spawn_deviation := 0. ## Force the angle to spawn at. Use positive numbers only, between 0 and TAU.

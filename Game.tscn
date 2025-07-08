@@ -1,14 +1,17 @@
-[gd_scene load_steps=53 format=3 uid="uid://b5pbc84g5mdio"]
+[gd_scene load_steps=58 format=3 uid="uid://b5pbc84g5mdio"]
 
 [ext_resource type="Shader" uid="uid://ddika7jy7sb2p" path="res://Materials/border.gdshader" id="1_jsoai"]
 [ext_resource type="Script" uid="uid://lc720et2mt2a" path="res://Scripts/VisualsManager.gd" id="1_w2501"]
 [ext_resource type="Script" uid="uid://laicckju2rm2" path="res://Scripts/UI/Border.gd" id="2_jsoai"]
 [ext_resource type="Shader" uid="uid://dfuywri163sns" path="res://Materials/shadow.gdshader" id="2_lvtmh"]
+[ext_resource type="AudioStream" uid="uid://diq8thyai0nta" path="res://Audio/Water.wav" id="2_w7ht3"]
 [ext_resource type="AudioStream" uid="uid://brhb8tjw361dp" path="res://Audio/YWC music.mp3" id="2_xkndl"]
 [ext_resource type="PackedScene" uid="uid://bip2uy5kjiygv" path="res://Player.tscn" id="2_yhmtn"]
 [ext_resource type="Script" uid="uid://bwaf4fbtqlnyu" path="res://Scripts/UI/DoNotCrash.gd" id="3_0yprl"]
+[ext_resource type="AudioStream" uid="uid://t465so7omiu0" path="res://Audio/Darkness.mp3" id="3_8ktx7"]
 [ext_resource type="Script" uid="uid://y8ia1qgcvmiw" path="res://Scripts/UI/LevelLabel.gd" id="3_wuoie"]
 [ext_resource type="Script" uid="uid://blaxrr1ia0weh" path="res://Scripts/MainMenu.gd" id="4_gwjdr"]
+[ext_resource type="AudioStream" uid="uid://cq0e0cmbj2jpd" path="res://Audio/Glitch.wav" id="4_hwsgv"]
 [ext_resource type="Texture2D" uid="uid://cb2r56h0p6c36" path="res://Textures/title.png" id="4_sb48q"]
 [ext_resource type="Theme" uid="uid://cj5jgds7mrx8" path="res://Theme.tres" id="4_t88pq"]
 [ext_resource type="Texture2D" uid="uid://cgpvvibie3ut6" path="res://Textures/Dotscount.png" id="5_t88pq"]
@@ -27,6 +30,7 @@
 [ext_resource type="Script" uid="uid://dct6qja07fkm6" path="res://Scripts/UI/SoundToggle.gd" id="21_y5ctq"]
 [ext_resource type="PackedScene" uid="uid://cmla8e28xeh7s" path="res://ModeSelector.tscn" id="22_0mevm"]
 [ext_resource type="StyleBox" uid="uid://dnggca4npe84q" path="res://Textures/ButtonTextureYellow.tres" id="22_7ged1"]
+[ext_resource type="Shader" uid="uid://crg5t76ve6v76" path="res://Materials/glitch.gdshader" id="31_gebyw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jsoai"]
 shader = ExtResource("1_jsoai")
@@ -64,7 +68,7 @@ fill_to = Vector2(0.5, 0)
 
 [sub_resource type="Gradient" id="Gradient_y5ctq"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0.16, 0.805333, 1)
+offsets = PackedFloat32Array(0.16, 0.68, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_w7ht3"]
@@ -77,7 +81,7 @@ fill_to = Vector2(0.5, 0)
 
 [sub_resource type="Gradient" id="Gradient_w7ht3"]
 interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.56)
+offsets = PackedFloat32Array(0, 0.464)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8ktx7"]
@@ -219,17 +223,39 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_y5ctq"]
 size = Vector2(520, 940)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4my3f"]
+resource_local_to_scene = true
+shader = ExtResource("31_gebyw")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_block_size = 100.0
+shader_parameter/shake_color_rate = 0.005
+shader_parameter/shake_scale = 0.0
+
 [node name="World" type="Node2D"]
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_light", "darkness_modulate", "game_area", "water_waves")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_light", "game_area", "water_waves", "glitch_overlay")]
 script = ExtResource("1_w2501")
 player_light = NodePath("../Player/PointLight2D")
-darkness_modulate = NodePath("CanvasModulate")
 game_area = NodePath("../GameManager")
 water_waves = NodePath("../WaterWaves")
+glitch_overlay = NodePath("../GlitchEffect")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="Visuals"]
+[node name="DarkCanvas" type="CanvasModulate" parent="Visuals"]
+visible = false
 visibility_layer = 0
+
+[node name="WaterAudio" type="AudioStreamPlayer" parent="Visuals"]
+stream = ExtResource("2_w7ht3")
+volume_db = inf_neg
+bus = &"SFX"
+
+[node name="DarknessAudio" type="AudioStreamPlayer" parent="Visuals"]
+stream = ExtResource("3_8ktx7")
+volume_db = inf_neg
+
+[node name="GlitchAudio" type="AudioStreamPlayer" parent="Visuals"]
+stream = ExtResource("4_hwsgv")
+volume_db = inf_neg
 
 [node name="Bounds" type="Area2D" parent="."]
 collision_layer = 8
@@ -758,9 +784,17 @@ offset_top = 540.0
 offset_bottom = 1112.0
 
 [node name="WaterWaves" type="Sprite2D" parent="."]
-z_index = 1
+visible = false
+z_index = 2
 material = ExtResource("5_y5ctq")
-position = Vector2(0, 1040)
+position = Vector2(0, 1050)
+scale = Vector2(1.09615, 1.15319)
+texture = SubResource("PlaceholderTexture2D_y5ctq")
+
+[node name="GlitchEffect" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+material = SubResource("ShaderMaterial_4my3f")
 scale = Vector2(1.09615, 1.15319)
 texture = SubResource("PlaceholderTexture2D_y5ctq")
 
