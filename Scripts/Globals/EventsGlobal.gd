@@ -15,4 +15,4 @@ signal died() ## When player died.
 signal intro_finished() ## When the intro "DO NOT CRASH" finished.
 
 # Effectors
-signal change_border(border_size: Vector2) ## Change the border size
+signal change_border(border_size: Vector2, radius: float) ## Change the border size

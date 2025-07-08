@@ -11,11 +11,11 @@ bg_color = Color(0.827451, 0.929412, 0.968627, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_7ged1"]
 line_spacing = 0.0
 font_size = 45
-font_color = Color(0, 0.8, 1, 1)
 outline_size = 10
-shadow_size = 10
+outline_color = Color(0, 0.8, 1, 1)
+shadow_size = 20
 shadow_color = Color(0, 0.4, 0.501961, 1)
-shadow_offset = Vector2(5, 5)
+shadow_offset = Vector2(0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5ctq"]
 atlas = ExtResource("2_1yd0u")
@@ -67,7 +67,7 @@ font_color = Color(1.58831e-06, 0.398929, 0.499627, 1)
 
 [node name="ModeSelector" type="Panel"]
 z_index = 2
-custom_minimum_size = Vector2(0, 600)
+custom_minimum_size = Vector2(0, 640)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -76,7 +76,7 @@ anchor_bottom = 0.5
 offset_left = -260.0
 offset_top = -320.0
 offset_right = 260.0
-offset_bottom = 280.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(188, 286)
@@ -90,11 +90,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 20.0
+offset_top = 66.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 5
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]

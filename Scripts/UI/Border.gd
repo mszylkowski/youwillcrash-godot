@@ -2,8 +2,10 @@ class_name Border extends Sprite2D
 
 const GAME_SIZE := Vector2(260, 470)
 const GAME_RADIUS := 20
-const MENU_SIZE := Vector2(260, 300)
+const MENU_SIZE := Vector2(260, 320)
 const MENU_RADIUS := 40
+
+@export var dots_display: Node2D
 
 var tween: Tween
 
@@ -12,8 +14,10 @@ func _ready() -> void:
 	change_border(GAME_SIZE, GAME_RADIUS)
 
 func change_border(border_size: Vector2, border_radius: float) -> void:
+	print(border_size)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(true)
 	tween.tween_property(material, "shader_parameter/frame_size", border_size, .5)
 	tween.tween_property(material, "shader_parameter/border_radius", border_radius, .5).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(dots_display, "global_position:y", -border_size.y + 40, .5)

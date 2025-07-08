@@ -34,15 +34,15 @@ func _ready() -> void:
 	update_unlocks(GameState.currency)
 
 func slide_in() -> void:
-	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
-	tween.tween_property(self, "global_position:y", -300, .25)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).set_parallel(true)
+	tween.tween_property(self, "global_position:y", -Border.MENU_SIZE.y, .5)
 	Events.change_border.emit(Border.MENU_SIZE, Border.MENU_RADIUS)
 	Audios.play_ui_sound()
 	active = true
 
 func slide_out() -> void:
-	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC)
-	tween.tween_property(self, "global_position:y", 800, .25)
+	var tween := get_tree().create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CIRC).set_parallel(true)
+	tween.tween_property(self, "global_position:y", 800, .5)
 	Events.change_border.emit(Border.GAME_SIZE, Border.GAME_RADIUS)
 	Audios.play_ui_sound()
 	active = false
