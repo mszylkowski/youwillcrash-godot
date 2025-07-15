@@ -33,7 +33,7 @@ func _ready() -> void:
 	var turn_move_max := (offset_y if angle % 2 else offset_x) * 3 / dist_between_parts
 	var turn_move := randi_range(roundi(turn_move_max * .25), roundi(turn_move_max * .75))
 	var next_vel := Vector2(-lin_vel.y, lin_vel.x) * (1 if randf() > .5 else -1)
-	var length := randi_range(6, 9) if force_length < 1 else force_length
+	var length := randi_range(6, 8) if force_length < 1 else force_length
 
 	var curr_pos := start_pos
 
@@ -46,7 +46,7 @@ func _ready() -> void:
 	var snake_shift := randf_range(0, 1) if hue_shift_style != HueShiftMode.NO_SHIFT else 0.
 	var piece_shift := randf_range(.3, .6) / get_child_count() if hue_shift_style == HueShiftMode.PER_PART else 0.
 
-	var total_turn_move_max := (offset_y + offset_x) * 2 / dist_between_parts
+	var total_turn_move_max := ((offset_y + offset_x) * 2) / dist_between_parts + length
 	for i in range(total_turn_move_max):
 		curr_pos += lin_vel if (i < turn_move) else next_vel
 		var part := get_child(0) as Node2D

@@ -17,7 +17,7 @@ static func classic(number: int) -> Level:
 			var shapes_count: int = [1, 2, 3, 4][Level._rng.rand_weighted([7, 5, 3, 1])]
 			var level := Level.new(adjustment)
 			for _i in range(shapes_count):
-				level.add(Level.OBSTACLE_PREFABS.keys().pick_random() as Level.Obstacles, randf_range(0.2, 0.5))
+				level.add(Level.OBSTACLE_COST.keys().pick_random() as Level.Obstacles, randf_range(0.2, 0.5))
 			return level
 
 static func snake_den(number: int) -> Level:
@@ -38,12 +38,12 @@ static func firework_show(number: int) -> Level:
 static func firework_hell(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)
 	return Level.new(adjustment).add(Level.Obstacles.FIREWORK_BOSS, 1).set_boss(true) \
-		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 else Level.Visuals.NONE)
+		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 == 0 else Level.Visuals.NONE)
 
 static func all_bosses(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)
 	return Level.new(adjustment).add(Level.BOSS_SHAPES.pick_random(), 1).set_boss(true) \
-		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 else Level.Visuals.NONE)
+		.set_visual(Level.SPECIAL_VISUALS.pick_random() if number % 5 == 0 else Level.Visuals.NONE)
 
 static func red_shower(number: int) -> Level:
 	var adjustment := 1 / (.75 * log(number) + 1.5)

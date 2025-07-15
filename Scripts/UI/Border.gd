@@ -14,7 +14,6 @@ func _ready() -> void:
 	change_border(GAME_SIZE, GAME_RADIUS)
 
 func change_border(border_size: Vector2, border_radius: float) -> void:
-	print(border_size)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK).set_parallel(true)
